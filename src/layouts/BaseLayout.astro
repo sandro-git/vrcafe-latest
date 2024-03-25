@@ -1,0 +1,28 @@
+---
+//components
+import NavBar from "@components/NavBar.astro";
+import Footer from "@components/Footer.astro";
+---
+
+<html lang="fr" class="smooth scroll-smooth pt-16">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VR Café</title>
+  </head>
+  <body class="dark:bg-gray-800">
+    <NavBar />
+    <slot />
+    <Footer />
+    <script src="../../node_modules/flowbite/dist//flowbite.min.js"></script>
+  </body>
+</html>
+
+<style>
+  :root {
+    --navHeight: 8rem;
+  }
+  html {
+    scroll-padding-top: var(--navHeight);
+  }
+</style>

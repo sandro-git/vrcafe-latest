@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets";
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  slug: string;
+}
+const { src, alt, slug } = Astro.props;
+---
+
+<a href={slug}>
+  <Image class="rounded-t-lg" src={src} alt={alt} />
+</a>

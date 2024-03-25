@@ -1,16 +1,25 @@
 ---
+// Welcome to Astro! Everything between these triple-dash code fences
+// is your "component frontmatter". It never runs in the browser.
+import { getCollection } from "astro:content";
 
+//components
+import Card from "@components/Card.astro";
+import LandingImage from "@components/LandingImage.astro";
+import Title from "@components/Title.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+//data
+const games = await getCollection("games");
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <LandingImage />
+  <Title title="Escape Games" />
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 container mx-auto">
+    {
+      games.map((game) => (
+        <Card game={game.data} slug={game.slug} text={game.body} />
+      ))
+    }
+  </div>
+</BaseLayout>

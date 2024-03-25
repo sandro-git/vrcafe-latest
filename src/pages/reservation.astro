@@ -1,0 +1,35 @@
+---
+//layout
+import BaseLayout from "@layouts/BaseLayout.astro";
+//components
+import BookingWidget from "../components/reservation";
+---
+
+<BaseLayout>
+  <script
+    type="text/javascript"
+    src="//vr-cafe.checkfront.com/lib/interface--0.js"></script>
+  <!-- CHECKFRONT BOOKING PLUGIN v25-->
+  <div id="CHECKFRONT_WIDGET_01">
+    <p
+      id="CHECKFRONT_LOADER"
+      style="background: url('//vr-cafe.checkfront.com/images/loader.gif') left center no-repeat; padding: 5px 5px 5px 20px"
+    >
+      Searching Availability...
+    </p>
+  </div>
+  <script>
+    new DROPLET.Widget({
+      host: "vr-cafe.checkfront.com",
+      target: "CHECKFRONT_WIDGET_01",
+      options: "category_select",
+      provider: "droplet",
+    }).render();
+  </script>
+  <noscript
+    ><a href="https://vr-cafe.checkfront.com/reserve/" style="font-size: 16px"
+      >Continue to Secure Booking System &raquo;</a
+    ></noscript
+  >
+  <BookingWidget client:load />
+</BaseLayout>
