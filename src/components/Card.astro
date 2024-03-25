@@ -2,7 +2,7 @@
 import CardImage from "./CardImage.astro";
 import CardLink from "./CardLink.astro";
 // import CardText from "./CardText.astro";
-// import CardTitle from "./CardTitle.astro";
+import CardTitle from "./CardTitle.astro";
 
 const { game, slug, text } = Astro.props;
 ---
@@ -12,7 +12,7 @@ const { game, slug, text } = Astro.props;
 >
   <CardImage src={game.image} alt={game.alt} slug={slug} />
   <div class="p-5 grid grid-cols-1">
-    <!-- <CardTitle display="none" title={game.name} slug={slug} /> -->
+    <CardTitle display="none" title={game.name} slug={slug} />
     <!-- <CardText display="hidden" text={text} /> -->
     <CardLink slug={slug} />
   </div>

@@ -10,15 +10,24 @@ import Title from "@components/Title.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 //data
 const games = await getCollection("games");
+const jeux = await getCollection("jeux");
 ---
 
 <BaseLayout>
   <LandingImage />
-  <Title title="Escape Games" />
+  <Title title="Escape Games VR" />
   <div class="grid grid-cols-2 md:grid-cols-3 gap-4 container mx-auto">
     {
       games.map((game) => (
         <Card game={game.data} slug={game.slug} text={game.body} />
+      ))
+    }
+  </div>
+  <Title title="Jeux VR" />
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 container mx-auto">
+    {
+      jeux.map((jeu) => (
+        <Card game={jeu.data} slug={jeu.slug} text={jeu.body} />
       ))
     }
   </div>
