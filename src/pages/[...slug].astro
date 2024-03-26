@@ -6,17 +6,16 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const games = await getCollection("games");
-  return games.map(({ slug, data }) => ({
+  const jeux = await getCollection("jeux");
+
+  const all = [].concat(games, jeux);
+
+  return all.map(({ slug, data }) => ({
     params: { slug: slug },
     props: { data },
   }));
 }
 
-interface data {
-  name: string;
-  image: ImageMetadata;
-  video: string;
-}
 const { slug } = Astro.params;
 const { data } = Astro.props;
 ---
