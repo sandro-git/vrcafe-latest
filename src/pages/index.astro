@@ -8,6 +8,7 @@ import LandingImage from "@components/LandingImage.astro";
 import Title from "@components/Title.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import GameList from "@components/GameList.astro";
+import Pricing from "@components/Pricing.astro";
 
 //data
 const games = await getCollection("games");
@@ -23,4 +24,6 @@ const freeroaming = await getCollection("freeroaming");
   <GameList games={jeux} />
   <Title title="Free roaming" />
   <GameList games={freeroaming} />
+  <Title title="Tarifs" />
+  <Pricing />
 </BaseLayout>
