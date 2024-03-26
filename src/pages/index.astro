@@ -12,6 +12,7 @@ import GameList from "@components/GameList.astro";
 //data
 const games = await getCollection("games");
 const jeux = await getCollection("jeux");
+const freeroaming = await getCollection("freeroaming");
 ---
 
 <BaseLayout>
@@ -20,4 +21,6 @@ const jeux = await getCollection("jeux");
   <GameList games={games} />
   <Title title="Jeux VR" />
   <GameList games={jeux} />
+  <Title title="Free roaming" />
+  <GameList games={freeroaming} />
 </BaseLayout>

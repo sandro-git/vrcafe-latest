@@ -17,4 +17,5 @@ const gamesCollection = defineCollection({
 export const collections = {
   games: gamesCollection,
   jeux: gamesCollection,
+  freeroaming: gamesCollection,
 };
