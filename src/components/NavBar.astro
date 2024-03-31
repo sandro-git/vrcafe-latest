@@ -28,7 +28,13 @@ import { Image } from "astro:assets";
   >
     <!-- Logo -->
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <Image loading={"eager"} src={Logo} class="w-8" alt="Flowbite Logo" />
+      <Image
+        loading={"eager"}
+        width={64}
+        src={Logo}
+        class="w-8"
+        alt="VR café Logo"
+      />
       <span
         class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white"
         >VR Café</span
