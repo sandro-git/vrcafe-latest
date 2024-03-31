@@ -5,5 +5,12 @@ const { src, alt, slug } = Astro.props;
 ---
 
 <a href={slug}>
-  <Image class="rounded-t-lg" src={src} alt={alt} />
+  <Image
+    loading="lazy"
+    widths={[382, 243, 329]}
+    sizes="(min-width: 640px)310px, 382px,(min-width: 780px) 243px , (min-width: 1040px) 329px, (min-width: 1280px) 382px "
+    class="rounded-t-lg"
+    src={src}
+    alt={alt}
+  />
 </a>
