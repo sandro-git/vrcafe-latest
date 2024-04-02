@@ -5,9 +5,10 @@ import vrcafe from "../assets/vrcafe.jpg";
 
 <Image
   loading={"eager"}
-  widths={[300, 820, 1125, vrcafe.width]}
-  sizes={`(max-width: 360px)300px, (max-width: 820px) 820px, (max-width: 1200px) 1125px,${vrcafe.width}px`}
+  widths={[320, 820, 1125]}
+  sizes="(min-width: 640px) 820px ,(min-width: 1024px) 1125px, 320px"
   class="mx-auto h-auto max-w-full rounded-xl"
   src={vrcafe}
   alt="description"
+  format="avif"
 />
