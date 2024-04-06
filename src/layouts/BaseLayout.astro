@@ -2,18 +2,11 @@
 //components
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
+import BaseHead from "./BaseHead.astro";
 ---
 
 <html lang="fr" class="smooth scroll-smooth pt-16">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VR Café</title>
-    <meta
-      name="description"
-      content="Le plus grand choix d'escape games VR Pour toute la famille"
-    />
-  </head>
+  <BaseHead />
   <body class="dark:bg-gray-800">
     <NavBar />
     <slot />
@@ -22,14 +15,13 @@ import Footer from "../components/Footer.astro";
       is:inline
       src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"
     ></script>
+    <style>
+      :root {
+        --navHeight: 8rem;
+      }
+      html {
+        scroll-padding-top: var(--navHeight);
+      }
+    </style>
   </body>
 </html>
-
-<style>
-  :root {
-    --navHeight: 8rem;
-  }
-  html {
-    scroll-padding-top: var(--navHeight);
-  }
-</style>
