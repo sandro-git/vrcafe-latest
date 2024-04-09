@@ -2,12 +2,15 @@
 import Card from "../components/Card.astro";
 
 const { games = [] } = Astro.props;
+console.log(games);
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 container mx-auto">
   {
-    games.map(({ data, slug, body }) => (
-      <Card game={data} slug={slug} text={body} />
-    ))
+    games.slug
+      ? games.map(({ data, slug, body }) => (
+          <Card game={data} slug={slug} text={body} />
+        ))
+      : games.map(({ data }) => <Card game={data} slug={data.slug} />)
   }
 </div>
