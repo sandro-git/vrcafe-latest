@@ -4,19 +4,15 @@
 import { getCollection } from "astro:content";
 
 //components
-import LandingImage from "../components/LandingImage.astro";
 import Title from "../components/Title.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GameList from "../components/GameList.astro";
-import Pricing from "../components/Pricing.astro";
-
 //data
 const freeroaming = await getCollection("freeroaming");
 ---
 
 <!-- TO DO :netlify cloudinary integration to optimize images -->
 <BaseLayout>
-  <LandingImage />
-  <Title title="Tarifs" />
-  <Pricing />
+  <Title title="Free Roaming VR" />
+  <GameList games={freeroaming} />
 </BaseLayout>
