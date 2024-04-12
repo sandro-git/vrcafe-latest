@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 const { src, alt, slug } = Astro.props;
 ---
 
-<a href={slug}>
+<a href={"/" + slug}>
   <Image
     loading={"eager"}
     class="rounded-t-lg"
