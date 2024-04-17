@@ -9,6 +9,7 @@ import Title from "../components/Title.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GameList from "../components/GameList.astro";
 import Pricing from "../components/Pricing.astro";
+import Hero from "@components/Hero.astro";
 
 //data
 const freeroaming = await getCollection("freeroaming");
@@ -17,6 +18,7 @@ const freeroaming = await getCollection("freeroaming");
 <!-- TO DO :netlify cloudinary integration to optimize images -->
 <BaseLayout>
   <LandingImage />
+  <Hero />
   <Title title="Tarifs" />
   <Pricing />
 </BaseLayout>
