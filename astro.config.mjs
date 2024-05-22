@@ -8,6 +8,6 @@ import icon from "astro-icon";
 export default defineConfig({
   image: {
     remotePatterns: [{ protocol: "https" }],
-  }
-  integrations: [react(), tailwind(), icon()]
+  },
+  integrations: [react(), tailwind(), icon()],
 });
