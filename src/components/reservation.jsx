@@ -16,7 +16,7 @@ function BookingWidget() {
           timeline_hide_unavailable: "1",
           hide_past_days: "0",
           timeline_show_end_time: "0",
-          timeline_modern_display: "as_table",
+          timeline_modern_display: "as_slots",
           light_font_color: "#ffffff",
           sb_secondary_base: "#111827",
           sb_base_color: "#2563eb",
@@ -38,7 +38,7 @@ function BookingWidget() {
         app_config: {
           clear_session: 0,
           allow_switch_to_ada: 0,
-          predefined: { provider: "1" },
+          predefined: [],
         },
         container_id: "sbw_36ve1d",
       });
