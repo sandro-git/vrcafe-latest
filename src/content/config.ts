@@ -10,6 +10,7 @@ const gamesCollection = defineCollection({
       image: image(),
       alt: z.string(),
       video: z.string().optional(),
+      editor: z.string().optional(),
     }),
 });
 // 3. Export a single `collections` object to register your collection(s)
