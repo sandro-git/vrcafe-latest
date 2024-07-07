@@ -4,14 +4,16 @@
 import { getCollection } from "astro:content";
 
 //components
-import BaseLayout from "../layouts/BaseLayout.astro";
-import GamesLayout from "../layouts/GamesLayout.astro";
-
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GamesLayout from "../../layouts/GamesLayout.astro";
 //data
-const games = await getCollection("games");
+const ARVIgames = await getCollection(
+  "games",
+  (game) => game.data.editor === "ARVI"
+);
 ---
 
 <!-- TO DO :netlify cloudinary integration to optimize images -->
 <BaseLayout>
-  <GamesLayout games={games} />
+  <GamesLayout games={ARVIgames} />
 </BaseLayout>
