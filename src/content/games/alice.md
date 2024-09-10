@@ -2,7 +2,7 @@
 name: "Alice"
 image: "../../assets/Alice.jpg"
 alt: "Alice au pays des merveilles"
-video: "/Alice.webm"
+video: "https://www.youtube.com/watch?v=zUFHibhJWTc"
 editor: "ARVI"
 ---
 

@@ -20,19 +20,10 @@ export const escapeGames = defineType({
             }
         }),
         defineField({
-            name: 'video',
-            type: 'youtubeVideo',
-          }),
-        defineField(  {
-            name: 'autoplay',
-            type: 'boolean',
-            initialValue: false,
-          }),
-         defineField(  {
-            name: 'controls',
-            type: 'boolean',
-            initialValue: true,
-          }),
+            name: 'youtube',
+            type: 'string',
+            title: 'Youtube',
+          })
     ]
 })
 
