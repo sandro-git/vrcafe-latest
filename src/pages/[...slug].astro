@@ -1,25 +1,29 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Youtube from "@components/Youtube.astro";
+import type { InferGetStaticParamsType, InferGetStaticPropsType } from 'astro';
+import type { GetStaticPaths } from 'astro';
+
+import { sanityClient } from "sanity:client";
 
 export const prerender = true;
 
-export async function getStaticPaths() {
-  const games = await getCollection("games");
-  const jeux = await getCollection("jeux");
-  const freeroaming = await getCollection("freeroaming");
+export const getStaticPaths= (async () => {
+  const gamesSanity = await sanityClient.fetch(`*[_type == "escapeGames"]`);
 
-  const all = [].concat(games, jeux, freeroaming);
+  return gamesSanity.map((game) => {
+    return {
+      params: { slug: game.slug.current },
+      props: { game }
+    }
+  });
+}) satisfies GetStaticPaths
 
-  return all.map(({ slug, data }) => ({
-    params: { slug: slug },
-    props: { data },
-  }));
-}
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { slug } = Astro.params;
-const { data } = Astro.props;
+const { slug } = Astro.params as Params;
+const { game } = Astro.props as Props;
 
 ---
 
@@ -29,18 +33,9 @@ const { data } = Astro.props;
       id=`${slug}`
       class="my-8 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
     >
-      {data.name}
+      {game.name}
     </h1>
-    <Youtube videoId={data.video} />
-    <!-- <video
-      class="w-full h-auto max-w-full border border-gray-200 rounded-lg dark:border-gray-700"
-      controls
-      autoplay
-    >
-      <source src={data.video} type="video/webm" />
-      Votre navigateur ne supporte pas le tag video.
-    </video> -->
-    
-    <p class="dark:text-white p-8 lg:w-1/2" >Laissez-vous emporter par le tourbillon des événements et incarnez Alice ! Plongez dans un monde envahi par la vraie magie ! Vous devez découvrir les secrets de la Reine de cœur qui a jeté un sort sur le temps du Pays des Merveilles. Buvez une potion rétrécissante et suivez le Lapin blanc dans les labyrinthes tordus du monde de l'autre côté du miroir, où tout est inversé. Aidez le Chapelier, bloqué dans le temps, à résoudre le problème de la folle fête du thé. Le chat du Cheshire vous guidera à travers le bosquet enchanté de la Forêt noire. Sauvez les fées qui connaissent le secret de la méchante reine en utilisant les conseils de la sage Chenille. Trouvez un moyen pour ne pas vous faire surprendre par les gardes soldats, déjouez les nombreux pièges du château et tentez de parvenir enfin à vaincre la Reine de cœur, renverser le sort de la tour de l'horloge et sauver le Pays des Merveilles.</p>
+    <Youtube videoId={game.youtube} /> 
+    <p class="dark:text-white p-8 lg:w-1/2" >{game.text}</p>
   </div>
 </BaseLayout>

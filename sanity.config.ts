@@ -3,7 +3,6 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {escapeGames} from './src/sanity/schemaTypes/games'
 
-import {youtubeInput} from 'sanity-plugin-youtube-input'
 
 export default defineConfig({
   name: 'vr-cafe',
@@ -12,9 +11,6 @@ export default defineConfig({
   dataset: 'production',
   plugins: [
     structureTool(),
-    youtubeInput(
-      { apiKey: 'AIzaSyBtr9CrajTccK9UFw6RzyDJXeLuVPr6Vw0' }
-    )
   ],
   schema: {
     types: [  

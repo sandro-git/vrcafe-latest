@@ -23,7 +23,12 @@ export const escapeGames = defineType({
             name: 'youtube',
             type: 'string',
             title: 'Youtube',
-          })
+        }),
+        defineField({
+            name:"text",
+            type: "text",
+            title: "Text",
+        })
     ]
 })
 
