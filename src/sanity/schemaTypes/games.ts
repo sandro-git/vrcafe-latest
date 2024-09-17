@@ -28,7 +28,12 @@ export const escapeGames = defineType({
             name:"text",
             type: "text",
             title: "Text",
-        })
+        }),
+        defineField({
+            name: "image",
+            type: "image",
+            title: "Image",
+        }),
     ]
 })
 
