@@ -1,18 +1,18 @@
 ---
-import { sanityClient } from "sanity:client";
 import Card from "../components/Card.astro";
 
-const { games } = Astro.props;
+export interface Props {
+  games: any[];
+}
 
-const gamesSanity = await sanityClient.fetch(`*[_type == "escapeGames"]`);
-console.log(gamesSanity);
+const { games } = Astro.props;
 
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 container mx-auto">
   {
-    gamesSanity.map(({ data, slug, body }) => (
-      <Card game={data} slug={slug} text={body} />
+    games.map((game) => (
+      <Card game={game} slug={game.slug.current}  />
     ))
   }
 </div>

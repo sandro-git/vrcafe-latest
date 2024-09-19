@@ -1,17 +1,19 @@
 ---
 // Welcome to Astro! Everything between these triple-dash code fences
 // is your "component frontmatter". It never runs in the browser.
-import { getCollection } from "astro:content";
-
+import { sanityClient } from "sanity:client";
 //components
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GamesLayout from "../layouts/GamesLayout.astro";
 
+import type { SanityDocument } from "@sanity/client";
+
 //data
-const games = await getCollection("games");
+const gamesSanity: SanityDocument[] = await sanityClient.fetch(`*[_type == "escapeGames"]`);
+
 ---
 
 <!-- TO DO :netlify cloudinary integration to optimize images -->
 <BaseLayout>
-  <GamesLayout games={games} />
+  <GamesLayout games={gamesSanity} />
 </BaseLayout>

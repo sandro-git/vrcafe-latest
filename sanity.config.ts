@@ -1,7 +1,7 @@
 // sanity.config.ts
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
-import {escapeGames} from './src/sanity/schemaTypes/games'
+import { schema } from './src/sanity/schemaTypes'
 
 
 export default defineConfig({
@@ -12,10 +12,5 @@ export default defineConfig({
   plugins: [
     structureTool(),
   ],
-  schema: {
-    types: [  
-      /* your content types here*/
-      escapeGames
-    ],
-  },
+  schema:{types:schema},
 })

@@ -2,38 +2,34 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Youtube from "../components/Youtube.astro";
 
-import { sanityClient } from "sanity:client";
+import type { SanityDocument } from "@sanity/client";
+import { loadQuery } from "../sanity/lib/load-query";
+
 
 export const prerender = true;
 
-interface Game {
-  name: string;
-  slug: { current: string };
-  youtube: string;
-  text: string;
+
+export async function getStaticPaths() {
+  const {data:games} = await loadQuery<SanityDocument[]>({
+    query: `*[_type == "escapeGames"]`,
+  });
+  return games.map(({slug}) => ({params: {
+    slug: slug.current
+  }}))
 }
 
-export const getStaticPaths= (async () => {
-  const gamesSanity = await sanityClient.fetch(`*[_type == "escapeGames"]`);
-  console.log(gamesSanity);
-  
-  return gamesSanity.map((game: Game) => {
-    return {
-      params: { slug: game.slug.current },
-      props: { game }
-    }
-  });
-}) 
-
-const { slug } = Astro.params ;
-const { game }: {game: Game} = Astro.props;
+const {params} =Astro
+const { data: game } = await loadQuery<SanityDocument>({
+  query: `*[_type == "escapeGames" && slug.current == $slug][0]`,
+  params,
+});
 
 ---
 
 <BaseLayout>
   <div class="grid place-items-center">
     <h1
-      id=`${slug}`
+      id=`${params.slug}`
       class="my-8 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
     >
       {game.name}
