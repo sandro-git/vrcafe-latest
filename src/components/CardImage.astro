@@ -6,7 +6,7 @@ const { src, alt, slug } = Astro.props;
 
 <a href={"/" + slug}>
   <Image
-    loading={"eager"}
+    loading={"lazy"}
     class="rounded-t-lg"
     src={src}
     alt={alt}
