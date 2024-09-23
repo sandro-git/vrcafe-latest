@@ -4,9 +4,9 @@
 import { getCollection } from "astro:content";
 
 //components
-import Title from "../components/Title.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import GameList from "../components/GameList.astro";
+import Title from "../../components/Title.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GameList from "../../components/GameList.astro";
 //data
 const jeux = await getCollection("jeux");
 ---

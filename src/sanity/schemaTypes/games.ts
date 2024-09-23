@@ -4,7 +4,7 @@ import { defineType, defineField } from "sanity";
 export const escapeGames = defineType({
     name: "escapeGames",
     type: "document",
-    title: "Escape Games",
+    title: "Games",
     fields: [
         defineField({
             name: "name",
@@ -34,6 +34,11 @@ export const escapeGames = defineType({
             type: "image",
             title: "Image",
         }),
+        defineField({
+            name: "tag",
+            type: "string",
+            title: "Tag",
+        })
     ]
 })
 
