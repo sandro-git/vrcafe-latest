@@ -9,7 +9,7 @@ import GamesLayout from "../../layouts/GamesLayout.astro";
 import type { SanityDocument } from "@sanity/client";
 
 //data
-const gamesSanity: SanityDocument[] = await sanityClient.fetch(`*[_type == "escapeGames"]`);
+const gamesSanity: SanityDocument[] = await sanityClient.fetch(`*[_type == "escapeGames" && tag == "escapeGame"]`);
 
 ---
 
