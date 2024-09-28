@@ -1,14 +1,18 @@
 ---
 // Welcome to Astro! Everything between these triple-dash code fences
 // is your "component frontmatter". It never runs in the browser.
-import { getCollection } from "astro:content";
 
+import type { SanityDocument } from "@sanity/client";
+import { loadQuery } from "../../sanity/lib/load-query";
 //components
 import Title from "../../components/Title.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import GameList from "../../components/GameList.astro";
 //data
-const jeux = await getCollection("jeux");
+const { data: jeux } = await loadQuery<SanityDocument>({
+  query: `*[_type == "escapeGames" && tag == "jeuxVR"]`,
+});
+
 ---
 
 <!-- TO DO :netlify cloudinary integration to optimize images -->
