@@ -7,15 +7,15 @@ import Dropdown from "./Dropdown.vue";
 const links = [
   {
     text: "Escapes Games VR",
-    path: "/experiences/escapes",
+    path: "/escapes",
   },
   {
     text: "Jeux VR",
-    path: "experiences/jeux",
+    path: "/jeux",
   },
   {
     text: "Free roaming",
-    path: "experiences/freeroaming",
+    path: "/freeroaming",
   },
   {
     text: "Contact",
@@ -63,7 +63,17 @@ const links = [
             aria-current="page">Acceuil</a
           >
           </li>
-          <Dropdown client:visible  class="ml-8"></Dropdown>
+          {
+            links.map(({ text, path }) => (
+              <li>
+                <a
+                  href={path}
+                  class="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 md:dark:text-blue-500"
+                  aria-current="page">{text}</a>
+              </li>
+              ) 
+            )
+          }
       </ul>
     </div>
   </div>

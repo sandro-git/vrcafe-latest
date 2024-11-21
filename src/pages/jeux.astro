@@ -3,11 +3,11 @@
 // is your "component frontmatter". It never runs in the browser.
 
 import type { SanityDocument } from "@sanity/client";
-import { loadQuery } from "../../sanity/lib/load-query";
+import { loadQuery } from "../sanity/lib/load-query";
 //components
-import Title from "../../components/Title.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import GameList from "../../components/GameList.astro";
+import Title from "../components/Title.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GameList from "../components/GameList.astro";
 //data
 const { data: jeux } = await loadQuery<SanityDocument>({
   query: `*[_type == "escapeGames" && tag == "jeuxVR"]`,

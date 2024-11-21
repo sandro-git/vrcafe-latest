@@ -3,7 +3,7 @@
 // is your "component frontmatter". It never runs in the browser.
 import { sanityClient } from "sanity:client";
 //components
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 import type { SanityDocument } from "@sanity/client";
 
@@ -11,8 +11,8 @@ import type { SanityDocument } from "@sanity/client";
 const gamesSanity: SanityDocument = await sanityClient.fetch(`*[_type == "escapeGames" && tag == "freeroaming"]`);
 
 //components
-import Title from "../../components/Title.astro";
-import GameList from "../../components/GameList.astro";
+import Title from "../components/Title.astro";
+import GameList from "../components/GameList.astro";
 //data
 ---
 
