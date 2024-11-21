@@ -1,4 +1,3 @@
-import type{ SchemaTypeDefinition } from "sanity";
-import { escapeGames } from "./games";
+import { Games } from "./games"
 
-export const schema: SchemaTypeDefinition[] = [escapeGames];
+export const schemaTypes = [Games]

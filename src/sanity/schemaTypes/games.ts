@@ -1,7 +1,7 @@
 
 import { defineType, defineField } from "sanity";
 
-export const escapeGames = defineType({
+export const Games = defineType({
     name: "escapeGames",
     type: "document",
     title: "Games",
@@ -38,46 +38,27 @@ export const escapeGames = defineType({
             name: "tag",
             type: "string",
             title: "Tag",
+            options: {
+                list: [
+                  {title: 'Escape Game', value: 'escapeGame'},
+                  {title: 'Jeux VR', value: 'jeuxVR'},
+                  {title: 'Freeroaming', value: 'freeroaming'},
+                ]
+            }
+        }),
+        defineField({
+            name: "editeur",
+            type: "string",
+            title: "Editeur",
+            options: {
+                list: [
+                  {title: 'ARVI', value: 'arvi'},
+                  {title: 'OCTOPOD', value: 'octopod'},
+                  {title: 'LDLC', value: 'ldlc'},
+                  {title: 'UBISOFT', value: 'ubisoft'},
+                  {title: 'VEX', value: 'vex'},
+                ]
+            }
         })
     ]
 })
-
-// import React from 'react';
-// import getYouTubeID from 'get-youtube-id';
-
-// const YouTubePreview = ({ value }) => {
-//   const id = getYouTubeID(value.url);
-//   const url = `https://www.youtube.com/embed/${id}`;
-//   if (!id) {
-//     return <div>Missing YouTube URL</div>;
-//   }
-//   return (
-//     <iframe
-//       title="YouTube Preview"
-//       width="560"
-//       height="315"
-//       src={url}
-//       frameBorder="0"
-//       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-//     />
-//   );
-// };
-
-// export default {
-//   name: 'youtube',
-//   type: 'object',
-//   title: 'YouTube Embed',
-//   fields: [
-//     {
-//       name: 'url',
-//       type: 'url',
-//       title: 'URL',
-//     },
-//   ],
-//   preview: {
-//     select: {
-//       url: 'url',
-//     },
-//     component: YouTubePreview,
-//   },
-// };

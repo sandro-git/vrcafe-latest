@@ -1,7 +1,7 @@
 // sanity.config.ts
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
-import { schema } from './src/sanity/schemaTypes'
+import { schemaTypes } from './src/sanity/schemaTypes'
 
 
 export default defineConfig({
@@ -12,5 +12,5 @@ export default defineConfig({
   plugins: [
     structureTool(),
   ],
-  schema:{types:schema},
+  schema:{types:schemaTypes},
 })
