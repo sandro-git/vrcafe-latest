@@ -10,6 +10,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Pricing from "../components/Pricing.astro";
 import Hero from "../components/Hero.astro";
 import Features from "../components/Features.astro";
+import GiftCard from "../components/GitfCard.astro";
 
 //data
 const freeroaming = await getCollection("freeroaming");
@@ -18,8 +19,9 @@ const freeroaming = await getCollection("freeroaming");
 <!-- TO DO :netlify cloudinary integration to optimize images -->
 <BaseLayout>
   <LandingImage />
-  <Hero />
-  <Features />
+  <GiftCard />
   <Title title="Tarifs" />
   <Pricing />
+  <Hero />
+  <Features />
 </BaseLayout>
