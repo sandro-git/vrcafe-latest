@@ -23,5 +23,6 @@ export default defineConfig({
       useCdn: false,
       studioBasePath: '/admin',
     }
-  ), vue()]
+  ), vue()],
+  output: 'hybrid'
 });
