@@ -1,41 +1,10 @@
 ---
-export const prerender = false;
-
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-let message = '';
-
-// Ajout de la logique de traitement du formulaire
-if (Astro.request.method === "POST") {
-  try {
-    const data = await Astro.request.formData();
-    const email = data.get("email");
-    const subject = data.get("subject");
-    const messageContent = data.get("message");
-
-    // Redirection avec les paramètres d'email
-    const mailtoUrl = `mailto:contact@vr-cafe.fr?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(messageContent)}%0A%0AEmail de contact: ${email}`;
-    
-    message = "Redirection vers votre client mail...";
-    return Astro.redirect(mailtoUrl);
-  } catch (error) {
-    console.error(error);
-    message = "Une erreur s'est produite. Veuillez réessayer.";
-  }
-}
 ---
 
 <BaseLayout>
   <section class="bg-white dark:bg-gray-900">
     <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-      {message && (
-        <div class="mb-4 p-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
-          {message}
-        </div>
-      )}
-      
       <h2
         class="mb-8 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
       >
