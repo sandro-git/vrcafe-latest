@@ -43,6 +43,7 @@ export const Games = defineType({
                   {title: 'Escape Game', value: 'escapeGame'},
                   {title: 'Jeux VR', value: 'jeuxVR'},
                   {title: 'Freeroaming', value: 'freeroaming'},
+                  {title: 'Escape Freeroaming', value: 'escapeFreeroaming'},
                 ]
             }
         }),
