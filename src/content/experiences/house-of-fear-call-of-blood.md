@@ -2,7 +2,7 @@
 id: 16
 name: "House Of Fear - Call of Blood"
 slug: "house-of-fear-call-of-blood"
-image: "house-of-fear-call-of-blood.jpg"
+image: "src/assets/images/experiences/house-of-fear-call-of-blood.jpg"
 youtube: "https://youtu.be/FZO9mIJOmKc"
 tag: "escapeGame"
 editeur: "arvi"

@@ -2,7 +2,7 @@
 id: 13
 name: "Notre Dame Brûle"
 slug: "notre-dame-brule"
-image: "notre-dame-brule.jpg"
+image: "src/assets/images/experiences/notre-dame-brule.jpg"
 youtube: "https://youtu.be/GBZ_IgjLi3w"
 tag: "escapeGame"
 editeur: "ubisoft"

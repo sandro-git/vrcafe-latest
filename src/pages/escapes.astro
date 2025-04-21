@@ -2,21 +2,27 @@
 // Welcome to Astro! Everything between these triple-dash code fences
 // is your "component frontmatter". It never runs in the browser.
 //components
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import GameList from "../components/GameList.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GamesLayout from "../layouts/GamesLayout.astro";
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-const experiences = await getCollection("experiences");
-
-type Experience = CollectionEntry<"experiences">;
-const escapes: Experience[] = experiences.filter(
-  (exp: Experience) => exp.data.tag === "escapeGame"
+const experiences = await getCollection(
+  "experiences",
+  ({ data }) => data.tag === "escapeGame"
 );
+import ImageComponent from "../components/MycustomImage.astro";
 ---
 
 <BaseLayout>
   <GamesLayout>
-    <GameList experiences={escapes} />
+    {
+      experiences.map((exp) => (
+        <ImageComponent imagePath={exp.data.image} altText={exp.data.name} />
+        // <pre class="text-white">{exp.data.image}</pre>
+      ))
+    }
+    <!-- <GameList experiences={escapes} /> -->
   </GamesLayout>
 </BaseLayout>

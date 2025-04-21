@@ -2,7 +2,7 @@
 id: 33
 name: "Temple Quest"
 slug: "temple-quest"
-image: "temple-quest.png"
+image: "src/assets/images/experiences/temple-quest.png"
 youtube: "https://www.youtube.com/watch?v=CsOqFhhPNLw"
 tag: "freeroaming"
 editeur: "vex"

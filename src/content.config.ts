@@ -1,20 +1,14 @@
 // 1. Import utilities from `astro:content`
 import { defineCollection, z } from "astro:content";
 
-// 2. Import loader(s)
-import { glob } from "astro/loaders";
-
-// 3. Define your collection(s)
-
 // Définition du schéma pour la collection des expériences
 const experiencesCollection = defineCollection({
-  loader: glob({ pattern: "./src/content/experiences/**/*.md" }),
   type: "content",
-  schema: z.object({
+  schema:({image})=> z.object({
     id: z.number(),
     name: z.string(),
     slug: z.string(),
-    image: z.string(), // URL de l'image (peut être une URL Sanity ou un chemin local)
+    image: image(), // URL de l'image (peut être une URL Sanity ou un chemin local)
     youtube: z.string(), // ID de la vidéo YouTube
     text: z.string(),
     tag: z.enum(["escapeGame", "jeuxVR", "freeroaming", "escapeFreeroaming"]),

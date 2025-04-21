@@ -2,7 +2,7 @@
 id: 35
 name: "Rune Tale Citadelle"
 slug: "rune-tale-citadelle"
-image: "rune-tale-citadelle.png"
+image: "src/assets/images/experiences/rune-tale-citadelle.png"
 youtube: "https://youtu.be/jYF9Jyari1I"
 tag: "jeuxVR"
 editeur: "ldlc"

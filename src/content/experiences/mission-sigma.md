@@ -2,7 +2,7 @@
 id: 6
 name: "Mission Sigma"
 slug: "mission-sigma"
-image: "mission-sigma.jpg"
+image: "src/assets/images/experiences/mission-sigma.jpg"
 youtube: "https://youtu.be/ZFdasv7EN8U"
 tag: "escapeGame"
 editeur: "arvi"

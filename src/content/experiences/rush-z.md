@@ -2,7 +2,7 @@
 id: 4
 name: "Rush Z"
 slug: "rush-z"
-image: "rush-z.png"
+image: "src/assets/images/experiences/rush-z.png"
 youtube: "https://www.youtube.com/watch?v=kfNQSBCljPM"
 tag: "freeroaming"
 editeur: "vex"

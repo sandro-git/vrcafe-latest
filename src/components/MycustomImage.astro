@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  imagePath: string;
+  altText: string;
+}
+
+const { imagePath, altText } = Astro.props;
+// const escapes = experiences.filter((exp) => exp.data.tag === "escapeGame");
+// console.log(experiences);
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/experiences/*.{jpeg,jpg,png,gif}"
+);
+
+if (!images[imagePath])
+  throw new Error(
+    `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
+  );
+---
+
+<a href={"/" + altText}>
+  <Image
+    src={images[imagePath]()}
+    alt={altText}
+    class="w-full h-auto rounded-lg shadow-lg transition-transform transform hover:scale-105"
+    loading="lazy"
+  /></a
+>

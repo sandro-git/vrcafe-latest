@@ -2,7 +2,7 @@
 id: 7
 name: "Cyberpunk"
 slug: "cyberpunk"
-image: "cyberpunk.jpg"
+image: "src/assets/images/experiences/cyberpunk.jpg"
 youtube: "https://youtu.be/VhI3-NkOn60"
 tag: "escapeGame"
 editeur: "arvi"

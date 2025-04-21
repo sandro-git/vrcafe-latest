@@ -3,6 +3,7 @@
 import { Image } from "astro:assets";
 
 const { filename, alt, width = 476, height = 476 } = Astro.props;
+// Ajouter des logs de débogage
 
 // Importer dynamiquement les images
 const images: Record<string, { default: ImageMetadata }> = import.meta.glob(
