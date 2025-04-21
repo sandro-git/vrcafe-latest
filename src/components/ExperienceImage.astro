@@ -6,7 +6,7 @@ const { filename, alt, width = 476, height = 476 } = Astro.props;
 
 // Importer dynamiquement les images
 const images: Record<string, { default: ImageMetadata }> = import.meta.glob(
-  "src/assets/images/experiences/*.{png,jpg,jpeg,gif}",
+  "../assets/images/experience/*.{png,jpg,jpeg,gif}",
   {
     eager: true,
   }
