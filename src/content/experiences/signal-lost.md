@@ -2,7 +2,7 @@
 id: 34
 name: "Signal Lost"
 slug: "signal-lost"
-image: "/images/experiences/signal-lost.jpg"
+image: "signal-lost.jpg"
 youtube: "https://youtu.be/uHuptdUB_nw"
 tag: "escapeGame"
 editeur: "arvi"

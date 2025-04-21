@@ -1,0 +1,33 @@
+---
+// src/components/ExperienceImage.astro
+import { Image } from "astro:assets";
+
+const { filename, alt, width = 400, height = 400 } = Astro.props;
+
+// Importer dynamiquement les images
+const images: Record<string, { default: ImageMetadata }> = import.meta.glob(
+  "src/assets/images/experiences/*.{png,jpg,jpeg,gif}",
+  {
+    eager: true,
+  }
+);
+
+// Trouver l'image correspondante
+const imagePath = Object.keys(images).find((path) => path.endsWith(filename));
+const imageModule = imagePath ? images[imagePath] : null;
+---
+
+{
+  imageModule ? (
+    <Image
+      src={imageModule.default}
+      alt={alt}
+      width={width}
+      height={height}
+      format="avif"
+      class="mt-2 rounded"
+    />
+  ) : (
+    <p>Image non trouvée: {filename}</p>
+  )
+}

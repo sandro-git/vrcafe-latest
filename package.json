@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "migrate-content": "node script/migrate-sanity-to-collections.js",
-    "move-images": "zsh script/move-images.sh"
+    "move-images": "zsh script/move-images.sh",
+    "modify-md-files": "node script/modify-md-files.js"
   },
   "dependencies": {
     "@astro-community/astro-embed-youtube": "^0.5.3",

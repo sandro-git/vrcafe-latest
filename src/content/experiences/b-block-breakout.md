@@ -2,7 +2,7 @@
 id: 44
 name: "B-Block Breakout "
 slug: "b-block-breakout"
-image: "/images/experiences/b-block-breakout.png"
+image: "b-block-breakout.png"
 youtube: "https://youtu.be/JVaYw1ZSPMo"
 tag: "escapeFreeroaming"
 editeur: "vex"

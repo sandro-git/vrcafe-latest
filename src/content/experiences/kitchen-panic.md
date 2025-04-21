@@ -2,7 +2,7 @@
 id: 17
 name: "Kitchen Panic !"
 slug: "kitchen-panic"
-image: "/images/experiences/kitchen-panic.jpg"
+image: "kitchen-panic.jpg"
 youtube: "https://www.youtube.com/watch?v=usd9Ifv0414"
 tag: "freeroaming"
 editeur: "vex"

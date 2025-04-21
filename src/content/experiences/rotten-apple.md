@@ -2,7 +2,7 @@
 id: 19
 name: "Rotten Apple"
 slug: "rotten-apple"
-image: "/images/experiences/rotten-apple.png"
+image: "rotten-apple.png"
 youtube: "https://www.youtube.com/watch?v=s4AnHiEuqUs"
 tag: "jeuxVR"
 editeur: "arvi"

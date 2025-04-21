@@ -2,7 +2,7 @@
 id: 9
 name: "Survival"
 slug: "survival"
-image: "/images/experiences/survival.jpg"
+image: "survival.jpg"
 youtube: "https://youtu.be/tyVV0Y9Jm3U"
 tag: "escapeGame"
 editeur: "arvi"

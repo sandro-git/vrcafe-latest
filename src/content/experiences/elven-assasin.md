@@ -2,7 +2,7 @@
 id: 26
 name: "Elven Assasin"
 slug: "elven-assasin"
-image: "/images/experiences/elven-assasin.jpg"
+image: "elven-assasin.jpg"
 youtube: "https://www.youtube.com/watch?v=o3GLK2Wsipk"
 tag: "jeuxVR"
 editeur: "arvi"

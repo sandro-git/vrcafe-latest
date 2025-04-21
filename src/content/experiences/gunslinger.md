@@ -2,7 +2,7 @@
 id: 45
 name: "Gunslinger"
 slug: "gunslinger"
-image: "/images/experiences/gunslinger.png"
+image: "gunslinger.png"
 youtube: "https://youtu.be/t9-6KtO1ILI"
 tag: "jeuxVR"
 editeur: "arvi"

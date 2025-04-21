@@ -2,7 +2,7 @@
 id: 20
 name: "Jungle Quest"
 slug: "jungle-quest"
-image: "/images/experiences/jungle-quest.jpg"
+image: "jungle-quest.jpg"
 youtube: "https://youtu.be/VGpV9sxAhOM"
 tag: "escapeGame"
 editeur: "arvi"
