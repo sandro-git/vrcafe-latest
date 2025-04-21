@@ -12,16 +12,11 @@ import vue from "@astrojs/vue";
 export default defineConfig({
   site: "https://vr-cafe.fr",
   image: {
-    remotePatterns: [{
-      protocol: "https"
-    }]
+    remotePatterns: [
+      {
+        protocol: "https",
+      },
+    ],
   },
-  integrations: [tailwind(), icon(), react(), sitemap(), sanity(
-    {
-      projectId: "7ef57i1i",
-      dataset: "production",
-      useCdn: false,
-      studioBasePath: '/admin',
-    }
-  ), vue()]
+  integrations: [tailwind(), icon(), react(), sitemap(), , vue()],
 });

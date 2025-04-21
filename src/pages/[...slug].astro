@@ -1,40 +1,48 @@
 ---
+// src/pages/[...slug].astro
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Youtube from "../components/Youtube.astro";
-
-import type { SanityDocument } from "@sanity/client";
-import { loadQuery } from "../sanity/lib/load-query";
-
+import { getCollection, type CollectionEntry } from "astro:content";
 
 export const prerender = true;
 
-
 export async function getStaticPaths() {
-  const {data:games} = await loadQuery<SanityDocument[]>({
-    query: `*[_type == "escapeGames"]`,
-  });
-  return games.map(({slug}) => ({params: {
-    slug: slug.current
-  }}))
+  const experiences = await getCollection("experiences");
+
+  return experiences.map((experience: CollectionEntry<"experiences">) => ({
+    params: {
+      slug: experience.data.slug,
+    },
+    props: {
+      experience,
+    },
+  }));
 }
 
-const {params} =Astro
-const { data: game } = await loadQuery<SanityDocument>({
-  query: `*[_type == "escapeGames" && slug.current == $slug][0]`,
-  params,
-});
+const { experience } = Astro.props as {
+  experience: CollectionEntry<"experiences">;
+};
 
+const { body } = experience;
+const { name, youtube } = experience.data;
+
+// Extraction de l'ID YouTube si c'est une URL complète
+const videoId = youtube.includes("youtu.be/")
+  ? youtube.split("youtu.be/")[1]
+  : youtube.includes("watch?v=")
+    ? youtube.split("watch?v=")[1]
+    : youtube;
 ---
 
 <BaseLayout>
   <div class="grid place-items-center">
     <h1
-      id=`${params.slug}`
+      id={experience.data.slug}
       class="my-8 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
     >
-      {game.name}
+      {name}
     </h1>
-    <Youtube videoId={game.youtube} /> 
-    <p class="dark:text-white p-8 lg:w-1/2" >{game.text}</p>
+    <Youtube videoId={videoId} />
+    <p class="dark:text-white p-8 lg:w-1/2">{body}</p>
   </div>
 </BaseLayout>

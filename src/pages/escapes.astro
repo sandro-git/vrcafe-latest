@@ -6,11 +6,13 @@ import GameList from "@components/GameList.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GamesLayout from "../layouts/GamesLayout.astro";
 import { getCollection } from "astro:content";
-
+import type { CollectionEntry } from "astro:content";
 const experiences = await getCollection("experiences");
-console.log(experiences);
 
-const escapes = experiences.filter((exp) => exp.data.tag === "escapeGame");
+type Experience = CollectionEntry<"experiences">;
+const escapes: Experience[] = experiences.filter(
+  (exp: Experience) => exp.data.tag === "escapeGame"
+);
 ---
 
 <BaseLayout>
