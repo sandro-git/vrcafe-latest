@@ -3,18 +3,32 @@
 import { Image } from "astro:assets";
 
 const { filename, alt, width = 476, height = 476 } = Astro.props;
-// Ajouter des logs de débogage
 
 // Importer dynamiquement les images
 const images: Record<string, { default: ImageMetadata }> = import.meta.glob(
-  "../assets/images/experience/*.{png,jpg,jpeg,gif}",
+  "../assets/images/experiences/*.{png,jpg,jpeg,gif}",
   {
     eager: true,
   }
 );
 
+// Ajouter des logs de débogage pour voir les images disponibles
+console.log('Images disponibles:', Object.keys(images));
+
+// Extraire juste le nom du fichier si un chemin complet est passé
+const filenameOnly = filename.includes('/') ? filename.split('/').pop() : filename;
+console.log(`Fichier d'origine: ${filename}, Fichier extrait: ${filenameOnly}`);
+
 // Trouver l'image correspondante
-const imagePath = Object.keys(images).find((path) => path.endsWith(filename));
+const imagePath = Object.keys(images).find((path) => {
+  const pathBasename = path.split('/').pop() || '';
+  const matches = pathBasename.includes(filenameOnly);
+  console.log(`Comparaison: ${pathBasename} vs ${filenameOnly} => ${matches}`);
+  return matches;
+});
+
+// Ajouter un log pour déboguer
+console.log(`Recherche de l'image ${filenameOnly}, trouvée: ${imagePath || 'non trouvée'}`);
 const imageModule = imagePath ? images[imagePath] : null;
 ---
 
