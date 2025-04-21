@@ -2,7 +2,7 @@
 // src/components/ExperienceImage.astro
 import { Image } from "astro:assets";
 
-const { filename, alt, width = 400, height = 400 } = Astro.props;
+const { filename, alt, width = 476, height = 476 } = Astro.props;
 
 // Importer dynamiquement les images
 const images: Record<string, { default: ImageMetadata }> = import.meta.glob(
@@ -25,7 +25,7 @@ const imageModule = imagePath ? images[imagePath] : null;
       width={width}
       height={height}
       format="avif"
-      class="mt-2 rounded"
+      class="rounded"
     />
   ) : (
     <p>Image non trouvée: {filename}</p>

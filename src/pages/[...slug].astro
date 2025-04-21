@@ -2,6 +2,7 @@
 // src/pages/[...slug].astro
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Youtube from "../components/Youtube.astro";
+import YoutubePlayer from "../components/YoutubePlayer.jsx";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 export const prerender = true;
@@ -42,7 +43,9 @@ const videoId = youtube.includes("youtu.be/")
     >
       {name}
     </h1>
-    <Youtube videoId={videoId} />
+    <div class="w-full max-w-4xl">
+      <YoutubePlayer videoId={videoId} client:load />
+    </div>
     <p class="dark:text-white p-8 lg:w-1/2">{body}</p>
   </div>
 </BaseLayout>
