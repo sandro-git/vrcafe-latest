@@ -1,22 +1,17 @@
 ---
-import { urlForImage } from "../sanity/lib/urlForImage";
 import CardImage from "./CardImage.astro";
 import CardLink from "./CardLink.astro";
 // import CardText from "./CardText.astro";
 import CardTitle from "./CardTitle.astro";
 
-
-const { game, slug }= Astro.props;
-const image = urlForImage(game.image).url();
-
-
+const { game, slug } = Astro.props;
 ---
 
 <!-- TO DO : ajouter les boutons de filtre -->
 <div
   class="max-w-sm mx-auto h-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
 >
-  <CardImage src={image} alt={game.name} slug={slug} />
+  <CardImage src={game.data.image} alt={game.data.name} slug={slug} />
   <div class="p-5 grid grid-cols-1">
     <CardTitle display="none" title={game.name} slug={slug} />
     <!-- <CardText display="hidden" text={text} /> -->

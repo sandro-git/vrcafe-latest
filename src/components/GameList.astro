@@ -1,18 +1,9 @@
 ---
 import Card from "../components/Card.astro";
-import type { SanityDocument } from "@sanity/client";
-export interface Props {
-  games: SanityDocument;
-}
-
-const { games } = Astro.props;
-
+const { experiences } = Astro.props;
+console.log(experiences);
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 container mx-auto">
-  {
-    games.map((game) => (
-      <Card game={game} slug={game.slug.current}  />
-    ))
-  }
+  {experiences.map((exp) => <Card game={exp} slug={exp.slug} />)}
 </div>

@@ -1,17 +1,13 @@
 ---
-import { Image } from "astro:assets";
-
+import ExperienceImage from "../components/ExperienceImage.astro";
 const { src, alt, slug } = Astro.props;
 ---
 
 <a href={"/" + slug}>
-  <Image
-    loading={"lazy"}
-    class="rounded-t-lg"
-    src={src}
+  <ExperienceImage
+    filename={src}
     alt={alt}
-    format="avif"
-    width={573}
-    height={573}
+    class="w-full h-auto rounded-lg shadow-lg transition-transform transform hover:scale-105"
+    loading="lazy"
   />
 </a>

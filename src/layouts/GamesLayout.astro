@@ -4,9 +4,6 @@
 
 //components
 import Title from "../components/Title.astro";
-import GameList from "../components/GameList.astro";
-
-const { games } = Astro.props;
 ---
 
 <Title title="Escape Games VR" />
@@ -30,4 +27,4 @@ const { games } = Astro.props;
     ><li>UBISOFT</li></a
   >
 </ul>
-<GameList games={games} />
+<slot />
