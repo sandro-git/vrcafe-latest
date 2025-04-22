@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
 function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack }) {
-  // État pour le nombre de participants
   const [participants, setParticipants] = useState(1);
-  // État pour les limites de participants
   const [limits, setLimits] = useState({ min: 1, max: 6 });
-  // État pour le prix
   const [price, setPrice] = useState(0);
-  // État pour le prix unitaire de base
   const [basePrice, setBasePrice] = useState(18);
 
-  // Détermination des limites et du prix de base en fonction de l'expérience
   useEffect(() => {
     if (selectedExperience) {
-      // Définir les limites en fonction du type d'expérience
       let newLimits = { min: 1, max: 6 };
       let newBasePrice = 18;
       
-      // Ajuster en fonction du tag
-      switch (selectedExperience.data.tag) {
+      switch (selectedExperience.type) {
         case 'escapeGame':
           newLimits = { min: 1, max: 6 };
           newBasePrice = 18;
@@ -41,21 +34,18 @@ function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack 
       
       setLimits(newLimits);
       setBasePrice(newBasePrice);
-      // Initialiser le nombre de participants au minimum
       setParticipants(newLimits.min);
     }
   }, [selectedExperience]);
 
-  // Calculer le prix total et par personne
   useEffect(() => {
     const calculatePrice = () => {
       let totalPrice = basePrice * participants;
       
-      // Appliquer des réductions pour les groupes
       if (participants >= 6) {
-        totalPrice = totalPrice * 0.9; // 10% de réduction pour 6 personnes ou plus
+        totalPrice = totalPrice * 0.9; // 10% de réduction
       } else if (participants >= 4) {
-        totalPrice = totalPrice * 0.95; // 5% de réduction pour 4-5 personnes
+        totalPrice = totalPrice * 0.95; // 5% de réduction
       }
       
       return Math.round(totalPrice);
@@ -64,35 +54,20 @@ function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack 
     setPrice(calculatePrice());
   }, [participants, basePrice]);
 
-  // Augmenter le nombre de participants
   const increaseParticipants = () => {
     if (participants < limits.max) {
       setParticipants(participants + 1);
     }
   };
 
-  // Diminuer le nombre de participants
   const decreaseParticipants = () => {
     if (participants > limits.min) {
       setParticipants(participants - 1);
     }
   };
 
-  // Calculer le prix par personne
   const pricePerPerson = price / participants;
-
-  // Calculer l'économie si une réduction est appliquée
-  const calculateSavings = () => {
-    const regularPrice = basePrice * participants;
-    return regularPrice - price;
-  };
-
-  const savings = calculateSavings();
-
-  // Confirmer la sélection
-  const handleContinue = () => {
-    onParticipantsSelect(participants, price);
-  };
+  const savings = (basePrice * participants) - price;
 
   return (
     <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
@@ -103,12 +78,12 @@ function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack 
       {selectedExperience && (
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            {selectedExperience.data.name}
+            {selectedExperience.name}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-300">
-            Type: {selectedExperience.data.tag === 'escapeGame' ? 'Escape Game VR' :
-                  selectedExperience.data.tag === 'jeuxVR' ? 'Jeu VR' :
-                  selectedExperience.data.tag === 'freeroaming' ? 'VR Sans Fil' :
+            Type: {selectedExperience.type === 'escapeGame' ? 'Escape Game VR' :
+                  selectedExperience.type === 'jeuxVR' ? 'Jeu VR' :
+                  selectedExperience.type === 'freeroaming' ? 'VR Sans Fil' :
                   'Escape Sans Fil'}
           </p>
         </div>
@@ -189,7 +164,7 @@ function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack 
         </button>
         
         <button
-          onClick={handleContinue}
+          onClick={() => onParticipantsSelect(participants, price)}
           className="px-6 py-2 bg-blue-700 text-white font-medium rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
         >
           Continuer

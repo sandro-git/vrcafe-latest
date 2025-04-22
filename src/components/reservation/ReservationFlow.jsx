@@ -7,10 +7,7 @@ import ReservationSummary from './ReservationSummary';
 import ProgressIndicator from './ProgressIndicator';
 
 function ReservationFlow() {
-  // État pour suivre l'étape courante
   const [currentStep, setCurrentStep] = useState(1);
-  
-  // État pour stocker les données de réservation
   const [reservationData, setReservationData] = useState({
     experience: null,
     participants: 1,
@@ -25,7 +22,6 @@ function ReservationFlow() {
     price: 0
   });
 
-  // Fonction pour mettre à jour les données de réservation
   const updateReservationData = (data) => {
     setReservationData(prevData => ({
       ...prevData,
@@ -33,36 +29,47 @@ function ReservationFlow() {
     }));
   };
 
-  // Fonction pour passer à l'étape suivante
   const goToNextStep = () => {
     setCurrentStep(currentStep + 1);
   };
 
-  // Fonction pour revenir à l'étape précédente
   const goToPreviousStep = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  // Rendu conditionnel en fonction de l'étape courante
+  const handleExperienceSelect = (experience) => {
+    updateReservationData({ experience });
+    goToNextStep();
+  };
+
+  const handleParticipantsSelect = (participants, price) => {
+    updateReservationData({ participants, price });
+    goToNextStep();
+  };
+
+  const handleDateTimeSelect = (date, timeSlot) => {
+    updateReservationData({ date, timeSlot });
+    goToNextStep();
+  };
+
+  const handleCustomerInfoSubmit = (customerInfo) => {
+    updateReservationData({ customerInfo });
+    goToNextStep();
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return (
           <ExperienceSelector 
-            onExperienceSelect={(experience) => {
-              updateReservationData({ experience });
-              goToNextStep();
-            }}
+            onExperienceSelect={handleExperienceSelect}
           />
         );
       case 2:
         return (
           <ParticipantSelector 
             selectedExperience={reservationData.experience}
-            onParticipantsSelect={(participants, price) => {
-              updateReservationData({ participants, price });
-              goToNextStep();
-            }}
+            onParticipantsSelect={handleParticipantsSelect}
             onBack={goToPreviousStep}
           />
         );
@@ -71,20 +78,14 @@ function ReservationFlow() {
           <DateTimeSelector 
             selectedExperience={reservationData.experience}
             participants={reservationData.participants}
-            onDateTimeSelect={(date, timeSlot) => {
-              updateReservationData({ date, timeSlot });
-              goToNextStep();
-            }}
+            onDateTimeSelect={handleDateTimeSelect}
             onBack={goToPreviousStep}
           />
         );
       case 4:
         return (
           <CustomerForm 
-            onSubmit={(customerInfo) => {
-              updateReservationData({ customerInfo });
-              goToNextStep();
-            }}
+            onSubmit={handleCustomerInfoSubmit}
             onBack={goToPreviousStep}
           />
         );

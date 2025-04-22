@@ -9,13 +9,11 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Noms des mois en français
   const monthNames = [
     'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
     'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
   ];
 
-  // Noms des jours en français (commençant par lundi)
   const dayNames = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
   // Générer les jours du calendrier pour le mois en cours
@@ -24,19 +22,14 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
       const year = currentMonth.getFullYear();
       const month = currentMonth.getMonth();
       
-      // Premier jour du mois
       const firstDay = new Date(year, month, 1);
-      // Dernier jour du mois
       const lastDay = new Date(year, month + 1, 0);
       
-      // Ajuster le jour de la semaine (0 = dimanche, 1 = lundi, ..., 6 = samedi)
-      // Nous voulons que le calendrier commence par lundi (1)
-      let dayOfWeek = firstDay.getDay() || 7; // Convertir 0 (dimanche) à 7
-      dayOfWeek = dayOfWeek - 1; // Ajuster pour commencer par lundi (0)
+      let dayOfWeek = firstDay.getDay() || 7;
+      dayOfWeek = dayOfWeek - 1;
       
       const days = [];
       
-      // Ajouter les jours du mois précédent (grisés)
       const prevMonthLastDate = new Date(year, month, 0).getDate();
       for (let i = dayOfWeek - 1; i >= 0; i--) {
         days.push({
@@ -46,15 +39,12 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
         });
       }
       
-      // Ajouter les jours du mois en cours
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       
       for (let day = 1; day <= lastDay.getDate(); day++) {
         const date = new Date(year, month, day);
         date.setHours(0, 0, 0, 0);
-        
-        // Déterminer si le jour est sélectionnable (généralement les jours à partir d'aujourd'hui)
         const isSelectable = date >= today;
         
         days.push({
@@ -64,7 +54,6 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
         });
       }
       
-      // Ajouter les jours du mois suivant pour compléter la dernière semaine
       const remainingDays = 7 - (days.length % 7 || 7);
       for (let day = 1; day <= remainingDays; day++) {
         days.push({
@@ -80,7 +69,6 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
     generateCalendarDays();
   }, [currentMonth]);
 
-  // Charger les créneaux horaires disponibles lorsqu'une date est sélectionnée
   useEffect(() => {
     if (selectedDate && selectedExperience) {
       const fetchAvailableTimeSlots = async () => {
@@ -88,19 +76,24 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
           setLoading(true);
           setError(null);
           
-          // Formatage de la date pour l'API (YYYY-MM-DD)
           const formattedDate = selectedDate.toISOString().split('T')[0];
           
-          const response = await fetch(`/api/available-slots?date=${formattedDate}&experienceId=${selectedExperience.id}&participants=${participants}`);
+          // Simuler l'appel API pour le moment
+          // À remplacer par un vrai appel API plus tard
+          await new Promise(resolve => setTimeout(resolve, 1000));
           
-          if (!response.ok) {
-            throw new Error('Erreur lors du chargement des créneaux horaires');
-          }
+          // Simuler des créneaux disponibles
+          const mockTimeSlots = [
+            { id: 1, start: '10:00', end: '11:30' },
+            { id: 2, start: '12:00', end: '13:30' },
+            { id: 3, start: '14:00', end: '15:30' },
+            { id: 4, start: '16:00', end: '17:30' },
+            { id: 5, start: '18:00', end: '19:30' }
+          ];
           
-          const data = await response.json();
-          setAvailableTimeSlots(data);
+          setAvailableTimeSlots(mockTimeSlots);
         } catch (err) {
-          setError(err.message);
+          setError("Erreur lors du chargement des créneaux horaires");
           setAvailableTimeSlots([]);
         } finally {
           setLoading(false);
@@ -112,19 +105,16 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
       setAvailableTimeSlots([]);
       setSelectedTimeSlot(null);
     }
-  }, [selectedDate, selectedExperience, participants]);
+  }, [selectedDate, selectedExperience]);
 
-  // Passer au mois précédent
   const goToPreviousMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
   };
 
-  // Passer au mois suivant
   const goToNextMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
   };
 
-  // Sélectionner une date
   const handleDateClick = (day) => {
     if (day.isSelectable) {
       setSelectedDate(day.date);
@@ -132,19 +122,16 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
     }
   };
 
-  // Sélectionner un créneau horaire
   const handleTimeSlotClick = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
   };
 
-  // Confirmer la sélection
   const handleContinue = () => {
     if (selectedDate && selectedTimeSlot) {
       onDateTimeSelect(selectedDate, selectedTimeSlot);
     }
   };
 
-  // Formater un créneau horaire pour l'affichage
   const formatTimeSlot = (timeSlot) => {
     return `${timeSlot.start} - ${timeSlot.end}`;
   };
@@ -155,14 +142,24 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
         Choisissez une date et un horaire
       </h2>
       
-      {/* Calendrier */}
+      {selectedExperience && (
+        <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+          <h3 className="font-medium text-gray-900 dark:text-white">
+            {selectedExperience.name}
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            {participants} {participants > 1 ? 'participants' : 'participant'}
+          </p>
+        </div>
+      )}
+      
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
           <button 
             onClick={goToPreviousMonth}
             className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400 focus:outline-none"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
           </button>
@@ -175,21 +172,19 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
             onClick={goToNextMonth}
             className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400 focus:outline-none"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
             </svg>
           </button>
         </div>
         
         <div className="grid grid-cols-7 gap-1">
-          {/* Jours de la semaine */}
           {dayNames.map((day, index) => (
             <div key={index} className="text-center text-gray-500 dark:text-gray-400 text-sm font-medium py-2">
               {day}
             </div>
           ))}
           
-          {/* Jours du mois */}
           {calendarDays.map((day, index) => (
             <div
               key={index}
@@ -209,7 +204,6 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
         </div>
       </div>
       
-      {/* Créneaux horaires */}
       <div className="mb-6">
         <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
           {selectedDate 

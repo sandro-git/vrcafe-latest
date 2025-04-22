@@ -4,88 +4,55 @@ function CustomerForm({ onSubmit, onBack }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    confirmEmail: '',
     phone: '',
     specialRequests: ''
   });
-  
-  const [formErrors, setFormErrors] = useState({
-    name: '',
-    email: '',
-    confirmEmail: '',
-    phone: ''
-  });
 
-  // Gérer le changement dans les champs du formulaire
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-    
-    // Réinitialiser l'erreur du champ modifié
-    if (formErrors[name]) {
-      setFormErrors({
-        ...formErrors,
-        [name]: ''
-      });
-    }
-  };
+  const [errors, setErrors] = useState({});
 
-  // Valider le formulaire
   const validateForm = () => {
-    let valid = true;
-    const newErrors = {
-      name: '',
-      email: '',
-      confirmEmail: '',
-      phone: ''
-    };
+    const newErrors = {};
     
-    // Validation du nom
     if (!formData.name.trim()) {
       newErrors.name = 'Le nom est requis';
-      valid = false;
     }
     
-    // Validation de l'email
     if (!formData.email.trim()) {
       newErrors.email = 'L\'email est requis';
-      valid = false;
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = 'Format d\'email invalide';
-      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Email invalide';
     }
     
-    // Validation de la confirmation d'email
-    if (formData.email !== formData.confirmEmail) {
-      newErrors.confirmEmail = 'Les emails ne correspondent pas';
-      valid = false;
-    }
-    
-    // Validation du téléphone
     if (!formData.phone.trim()) {
       newErrors.phone = 'Le numéro de téléphone est requis';
-      valid = false;
-    } else if (!/^[0-9]{10}$/.test(formData.phone.replace(/\s/g, ''))) {
-      newErrors.phone = 'Format de téléphone invalide (10 chiffres attendus)';
-      valid = false;
+    } else if (!/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/.test(formData.phone)) {
+      newErrors.phone = 'Numéro de téléphone invalide';
     }
     
-    setFormErrors(newErrors);
-    return valid;
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  // Soumettre le formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
     
     if (validateForm()) {
-      // Envoyer les données sans confirmEmail
-      const { confirmEmail, ...submissionData } = formData;
-      onSubmit(submissionData);
+      onSubmit(formData);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Effacer l'erreur quand l'utilisateur commence à corriger
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
     }
   };
 
@@ -94,11 +61,10 @@ function CustomerForm({ onSubmit, onBack }) {
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
         Vos informations
       </h2>
-      
-      <form onSubmit={handleSubmit}>
-        {/* Nom complet */}
-        <div className="mb-4">
-          <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Nom complet *
           </label>
           <input
@@ -107,24 +73,17 @@ function CustomerForm({ onSubmit, onBack }) {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className={`
-              shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5
-              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
-              ${formErrors.name 
-                ? 'border-red-500 focus:ring-red-500 focus:border-red-500 dark:focus:ring-red-500 dark:focus:border-red-500' 
-                : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500'}
-            `}
-            placeholder="Prénom et nom"
-            required
+            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
+              errors.name ? 'border-red-500' : 'border-gray-300'
+            }`}
           />
-          {formErrors.name && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-500">{formErrors.name}</p>
+          {errors.name && (
+            <p className="mt-1 text-sm text-red-600">{errors.name}</p>
           )}
         </div>
-        
-        {/* Email */}
-        <div className="mb-4">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Email *
           </label>
           <input
@@ -133,50 +92,17 @@ function CustomerForm({ onSubmit, onBack }) {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className={`
-              shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5
-              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
-              ${formErrors.email 
-                ? 'border-red-500 focus:ring-red-500 focus:border-red-500 dark:focus:ring-red-500 dark:focus:border-red-500' 
-                : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500'}
-            `}
-            placeholder="votre@email.com"
-            required
+            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
+              errors.email ? 'border-red-500' : 'border-gray-300'
+            }`}
           />
-          {formErrors.email && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-500">{formErrors.email}</p>
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-600">{errors.email}</p>
           )}
         </div>
-        
-        {/* Confirmation Email */}
-        <div className="mb-4">
-          <label htmlFor="confirmEmail" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Confirmation de l'email *
-          </label>
-          <input
-            type="email"
-            id="confirmEmail"
-            name="confirmEmail"
-            value={formData.confirmEmail}
-            onChange={handleChange}
-            className={`
-              shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5
-              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
-              ${formErrors.confirmEmail 
-                ? 'border-red-500 focus:ring-red-500 focus:border-red-500 dark:focus:ring-red-500 dark:focus:border-red-500' 
-                : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500'}
-            `}
-            placeholder="votre@email.com"
-            required
-          />
-          {formErrors.confirmEmail && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-500">{formErrors.confirmEmail}</p>
-          )}
-        </div>
-        
-        {/* Téléphone */}
-        <div className="mb-4">
-          <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Téléphone *
           </label>
           <input
@@ -185,38 +111,30 @@ function CustomerForm({ onSubmit, onBack }) {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className={`
-              shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5
-              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
-              ${formErrors.phone 
-                ? 'border-red-500 focus:ring-red-500 focus:border-red-500 dark:focus:ring-red-500 dark:focus:border-red-500' 
-                : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500'}
-            `}
-            placeholder="06 12 34 56 78"
-            required
+            className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
+              errors.phone ? 'border-red-500' : 'border-gray-300'
+            }`}
           />
-          {formErrors.phone && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-500">{formErrors.phone}</p>
+          {errors.phone && (
+            <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
           )}
         </div>
-        
-        {/* Demandes spéciales */}
-        <div className="mb-6">
-          <label htmlFor="specialRequests" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Demandes spéciales ou commentaires (optionnel)
+
+        <div>
+          <label htmlFor="specialRequests" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            Demandes spéciales
           </label>
           <textarea
             id="specialRequests"
             name="specialRequests"
-            rows="3"
             value={formData.specialRequests}
             onChange={handleChange}
-            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Informations complémentaires ou demandes particulières..."
+            rows="3"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           ></textarea>
         </div>
-        
-        <div className="flex justify-between">
+
+        <div className="flex justify-between pt-4">
           <button
             type="button"
             onClick={onBack}
@@ -224,7 +142,7 @@ function CustomerForm({ onSubmit, onBack }) {
           >
             Retour
           </button>
-          
+
           <button
             type="submit"
             className="px-6 py-2 bg-blue-700 text-white font-medium rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
