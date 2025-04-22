@@ -13,35 +13,41 @@ const images: Record<string, { default: ImageMetadata }> = import.meta.glob(
 );
 
 // Ajouter des logs de débogage pour voir les images disponibles
-console.log('Images disponibles:', Object.keys(images));
+console.log("Images disponibles:", Object.keys(images));
 
 // Extraire juste le nom du fichier si un chemin complet est passé
-const filenameOnly = filename.includes('/') ? filename.split('/').pop() : filename;
+const filenameOnly = filename.includes("/")
+  ? filename.split("/").pop()
+  : filename;
 console.log(`Fichier d'origine: ${filename}, Fichier extrait: ${filenameOnly}`);
 
 // Trouver l'image correspondante
 const imagePath = Object.keys(images).find((path) => {
-  const pathBasename = path.split('/').pop() || '';
+  const pathBasename = path.split("/").pop() || "";
   const matches = pathBasename.includes(filenameOnly);
   console.log(`Comparaison: ${pathBasename} vs ${filenameOnly} => ${matches}`);
   return matches;
 });
 
 // Ajouter un log pour déboguer
-console.log(`Recherche de l'image ${filenameOnly}, trouvée: ${imagePath || 'non trouvée'}`);
+console.log(
+  `Recherche de l'image ${filenameOnly}, trouvée: ${imagePath || "non trouvée"}`
+);
 const imageModule = imagePath ? images[imagePath] : null;
 ---
 
 {
   imageModule ? (
-    <Image
-      src={imageModule.default}
-      alt={alt}
-      width={width}
-      height={height}
-      format="avif"
-      class="rounded"
-    />
+    <div class="aspect-square w-full overflow-hidden">
+      <Image
+        src={imageModule.default}
+        alt={alt}
+        width={width}
+        height={height}
+        format="avif"
+        class="rounded object-cover w-full h-full"
+      />
+    </div>
   ) : (
     <p>Image non trouvée: {filename}</p>
   )
