@@ -4,7 +4,7 @@ name: "Aqualia"
 slug: "aqualia"
 image: "aqualia.png"
 youtube: "https://www.youtube.com/watch?v=cyIqJnmEayU"
-tag: "escapeGame"
+tag: "jeuxVR"
 editeur: "octopod"
 ---
 
