@@ -10,25 +10,35 @@ const experiences = await getCollection("experiences");
 const totalExperiences = experiences.length;
 
 // Nombre d'expériences par type
-const escapeGames = experiences.filter(exp => exp.data.tag === "escapeGame").length;
-const vrGames = experiences.filter(exp => exp.data.tag === "jeuxVR").length;
-const freeroaming = experiences.filter(exp => exp.data.tag === "freeroaming").length;
-const escapeFreeroaming = experiences.filter(exp => exp.data.tag === "escapeFreeroaming").length;
+const escapeGames = experiences.filter(
+  (exp: { data: { tag: string } }) => exp.data.tag === "escapeGame"
+).length;
+const vrGames = experiences.filter(
+  (exp: { data: { tag: string } }) => exp.data.tag === "jeuxVR"
+).length;
+const freeroaming = experiences.filter(
+  (exp: { data: { tag: string } }) => exp.data.tag === "freeroaming"
+).length;
+const escapeFreeroaming = experiences.filter(
+  (exp: { data: { tag: string } }) => exp.data.tag === "escapeFreeroaming"
+).length;
 ---
 
 <BaseLayout>
   <div class="container mx-auto px-4 py-8">
     <Title title="Administration" />
-    
+
     <!-- En-tête -->
     <div class="flex flex-col md:flex-row justify-between items-center mb-8">
       <div>
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Tableau de bord</h2>
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
+          Tableau de bord
+        </h2>
         <p class="text-gray-600 dark:text-gray-300">
           Gérez les réservations et consultez les statistiques
         </p>
       </div>
-      
+
       <div class="mt-4 md:mt-0">
         <a
           href="/"
@@ -38,30 +48,46 @@ const escapeFreeroaming = experiences.filter(exp => exp.data.tag === "escapeFree
         </a>
       </div>
     </div>
-    
+
     <!-- Cartes de statistiques -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Expériences</h3>
-        <p class="text-3xl font-bold text-blue-700 dark:text-blue-400">{totalExperiences}</p>
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+          Expériences
+        </h3>
+        <p class="text-3xl font-bold text-blue-700 dark:text-blue-400">
+          {totalExperiences}
+        </p>
       </div>
-      
+
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Escape Games</h3>
-        <p class="text-3xl font-bold text-purple-700 dark:text-purple-400">{escapeGames}</p>
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+          Escape Games
+        </h3>
+        <p class="text-3xl font-bold text-purple-700 dark:text-purple-400">
+          {escapeGames}
+        </p>
       </div>
-      
+
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Jeux VR</h3>
-        <p class="text-3xl font-bold text-green-700 dark:text-green-400">{vrGames}</p>
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+          Jeux VR
+        </h3>
+        <p class="text-3xl font-bold text-green-700 dark:text-green-400">
+          {vrGames}
+        </p>
       </div>
-      
+
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Freeroaming</h3>
-        <p class="text-3xl font-bold text-amber-700 dark:text-amber-400">{freeroaming + escapeFreeroaming}</p>
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+          Freeroaming
+        </h3>
+        <p class="text-3xl font-bold text-amber-700 dark:text-amber-400">
+          {freeroaming + escapeFreeroaming}
+        </p>
       </div>
     </div>
-    
+
     <!-- Onglets -->
     <div class="mb-8">
       <div class="border-b border-gray-200 dark:border-gray-700">
@@ -94,7 +120,7 @@ const escapeFreeroaming = experiences.filter(exp => exp.data.tag === "escapeFree
         </ul>
       </div>
     </div>
-    
+
     <!-- Gestionnaire de réservations (React) -->
     <AdminReservations client:load />
   </div>
@@ -102,23 +128,43 @@ const escapeFreeroaming = experiences.filter(exp => exp.data.tag === "escapeFree
 
 <script>
   // Simple gestion des onglets
-  document.addEventListener('DOMContentLoaded', function() {
-    const tabs = document.querySelectorAll('.border-b ul li a');
-    
-    tabs.forEach(tab => {
-      tab.addEventListener('click', (e) => {
+  document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".border-b ul li a");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", (e) => {
         e.preventDefault();
-        
+
         // Retirer la classe active de tous les onglets
-        tabs.forEach(t => {
-          t.classList.remove('border-blue-600', 'dark:text-blue-400', 'dark:border-blue-400', 'active');
-          t.classList.add('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
+        tabs.forEach((t) => {
+          t.classList.remove(
+            "border-blue-600",
+            "dark:text-blue-400",
+            "dark:border-blue-400",
+            "active"
+          );
+          t.classList.add(
+            "border-transparent",
+            "hover:text-gray-600",
+            "hover:border-gray-300",
+            "dark:hover:text-gray-300"
+          );
         });
-        
+
         // Ajouter la classe active à l'onglet cliqué
-        e.target.classList.remove('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
-        e.target.classList.add('border-blue-600', 'dark:text-blue-400', 'dark:border-blue-400', 'active');
-        
+        e.target.classList.remove(
+          "border-transparent",
+          "hover:text-gray-600",
+          "hover:border-gray-300",
+          "dark:hover:text-gray-300"
+        );
+        e.target.classList.add(
+          "border-blue-600",
+          "dark:text-blue-400",
+          "dark:border-blue-400",
+          "active"
+        );
+
         // Logique pour afficher le contenu de l'onglet (à implémenter)
         const tabName = e.target.innerText.toLowerCase();
         console.log(`Onglet sélectionné: ${tabName}`);
