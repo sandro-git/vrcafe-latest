@@ -3,17 +3,46 @@ import React, { useState } from 'react';
 function ReservationSummary({ reservationData, onBack }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
+  const [reservationNumber, setReservationNumber] = useState(null);
 
   const handleFinalize = async () => {
     try {
       setIsSubmitting(true);
       setSubmitError(null);
 
-      // Simulation d'un appel API
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Préparation des données pour l'API
+      const payload = {
+        experienceId: reservationData.experience.id,
+        experienceSlug: reservationData.experience.id,
+        date: reservationData.date.toISOString(),
+        timeSlotId: reservationData.timeSlot.id,
+        customerName: reservationData.customerInfo.name,
+        customerEmail: reservationData.customerInfo.email,
+        customerPhone: reservationData.customerInfo.phone,
+        numberOfPeople: reservationData.participants,
+        duration: reservationData.duration.id,
+        price: reservationData.price,
+        specialRequests: reservationData.customerInfo.specialRequests || ''
+      };
 
-      // Redirection vers une page de confirmation
-      window.location.href = '/reservation-confirmation';
+      // Appel à l'API de réservation
+      const response = await fetch('/api/reservations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de la création de la réservation');
+      }
+
+      const responseData = await response.json();
+      setReservationNumber(responseData.id);
+
+      // Redirection vers une page de confirmation avec le numéro de référence
+      window.location.href = `/reservation-confirmation?ref=${responseData.id}`;
     } catch (error) {
       setSubmitError('Une erreur est survenue lors de la finalisation de votre réservation. Veuillez réessayer.');
     } finally {
@@ -42,11 +71,14 @@ function ReservationSummary({ reservationData, onBack }) {
           <h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-2">
             {reservationData.experience.name}
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
             Type: {reservationData.experience.type === 'escapeGame' ? 'Escape Game VR' :
                   reservationData.experience.type === 'jeuxVR' ? 'Jeu VR' :
                   reservationData.experience.type === 'freeroaming' ? 'VR Sans Fil' :
                   'Escape Sans Fil'}
+          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Durée: {reservationData.duration.title}
           </p>
         </div>
 
@@ -69,6 +101,28 @@ function ReservationSummary({ reservationData, onBack }) {
               {reservationData.participants}
             </span>
           </div>
+          
+          {/* Durée et tarif spécifique */}
+          {reservationData.duration && reservationData.duration.id === '1h' && (
+            <div className="flex justify-between mb-2">
+              <span className="text-gray-600 dark:text-gray-300">Tarif horaire</span>
+              <span className="font-medium text-gray-900 dark:text-white">
+                {reservationData.participants <= 2 ? '29' : 
+                reservationData.participants <= 4 ? '27' : '25'} € / personne
+              </span>
+            </div>
+          )}
+          
+          {reservationData.duration && reservationData.duration.id === '30min' && (
+            <div className="flex justify-between mb-2">
+              <span className="text-gray-600 dark:text-gray-300">Tarif 30 minutes</span>
+              <span className="font-medium text-gray-900 dark:text-white">
+                {reservationData.experience.type === 'freeroaming' || 
+                  reservationData.experience.type === 'escapeFreeroaming' ? '25' : '18'} € / personne
+              </span>
+            </div>
+          )}
+          
           <div className="flex justify-between">
             <span className="text-gray-900 dark:text-white font-medium">Total</span>
             <span className="text-xl font-bold text-blue-700 dark:text-blue-400">

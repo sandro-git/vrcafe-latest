@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from 'react';
 
-function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack }) {
+function ParticipantSelector({ selectedExperience, selectedDuration, onParticipantsSelect, onBack }) {
   const [participants, setParticipants] = useState(1);
   const [limits, setLimits] = useState({ min: 1, max: 6 });
   const [price, setPrice] = useState(0);
   const [basePrice, setBasePrice] = useState(18);
 
+  // Définir les limites et prix selon l'expérience et la durée
   useEffect(() => {
-    if (selectedExperience) {
+    if (selectedExperience && selectedDuration) {
       let newLimits = { min: 1, max: 6 };
-      let newBasePrice = 18;
+      let newBasePrice = selectedDuration.id === '30min' ? 18 : 29;
       
       switch (selectedExperience.type) {
         case 'escapeGame':
           newLimits = { min: 1, max: 6 };
-          newBasePrice = 18;
           break;
         case 'jeuxVR':
           newLimits = { min: 1, max: 8 };
-          newBasePrice = 18;
           break;
         case 'freeroaming':
           newLimits = { min: 2, max: 6 };
-          newBasePrice = 25;
+          newBasePrice = selectedDuration.id === '30min' ? 25 : 29;
           break;
         case 'escapeFreeroaming':
           newLimits = { min: 2, max: 4 };
-          newBasePrice = 25;
+          newBasePrice = selectedDuration.id === '30min' ? 25 : 29;
           break;
         default:
           break;
@@ -36,23 +35,41 @@ function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack 
       setBasePrice(newBasePrice);
       setParticipants(newLimits.min);
     }
-  }, [selectedExperience]);
+  }, [selectedExperience, selectedDuration]);
 
+  // Calculer le prix total en fonction du nombre de participants et de la durée
   useEffect(() => {
     const calculatePrice = () => {
-      let totalPrice = basePrice * participants;
-      
-      if (participants >= 6) {
-        totalPrice = totalPrice * 0.9; // 10% de réduction
-      } else if (participants >= 4) {
-        totalPrice = totalPrice * 0.95; // 5% de réduction
+      // Prix standard pour session de 30 minutes
+      if (selectedDuration && selectedDuration.id === '30min') {
+        let totalPrice = basePrice * participants;
+        
+        if (participants >= 6) {
+          totalPrice = totalPrice * 0.9; // 10% de réduction
+        } else if (participants >= 4) {
+          totalPrice = totalPrice * 0.95; // 5% de réduction
+        }
+        
+        return Math.round(totalPrice);
+      } 
+      // Tarification spéciale pour session d'1 heure
+      else {
+        let pricePerPerson;
+        
+        if (participants <= 2) {
+          pricePerPerson = 29; // 29€ par personne pour 1-2 personnes
+        } else if (participants <= 4) {
+          pricePerPerson = 27; // 27€ par personne pour 3-4 personnes
+        } else {
+          pricePerPerson = 25; // 25€ par personne pour 5-6 personnes
+        }
+        
+        return pricePerPerson * participants;
       }
-      
-      return Math.round(totalPrice);
     };
     
     setPrice(calculatePrice());
-  }, [participants, basePrice]);
+  }, [participants, basePrice, selectedDuration]);
 
   const increaseParticipants = () => {
     if (participants < limits.max) {
@@ -66,8 +83,18 @@ function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack 
     }
   };
 
+  // Calculer le prix par personne
   const pricePerPerson = price / participants;
-  const savings = (basePrice * participants) - price;
+  
+  // Calculer les économies (si applicable, principalement pour la session de 30min)
+  let standardPrice = basePrice * participants;
+  let savings = standardPrice - price;
+  
+  // Pour la session d'une heure, calculer les économies par rapport au tarif standard
+  if (selectedDuration && selectedDuration.id === '1h' && participants > 2) {
+    const standardHourPrice = 29 * participants;
+    savings = standardHourPrice - price;
+  }
 
   return (
     <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
@@ -75,16 +102,13 @@ function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack 
         Nombre de participants
       </h2>
       
-      {selectedExperience && (
+      {selectedExperience && selectedDuration && (
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
             {selectedExperience.name}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-300">
-            Type: {selectedExperience.type === 'escapeGame' ? 'Escape Game VR' :
-                  selectedExperience.type === 'jeuxVR' ? 'Jeu VR' :
-                  selectedExperience.type === 'freeroaming' ? 'VR Sans Fil' :
-                  'Escape Sans Fil'}
+            Durée: {selectedDuration.title}
           </p>
         </div>
       )}
@@ -126,10 +150,23 @@ function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack 
       </div>
       
       <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-        <div className="flex justify-between mb-2">
-          <span className="text-gray-600 dark:text-gray-300">Prix de base</span>
-          <span className="font-medium text-gray-900 dark:text-white">{basePrice} € / personne</span>
-        </div>
+        {selectedDuration && selectedDuration.id === '1h' && (
+          <>
+            <div className="flex justify-between mb-2">
+              <span className="text-gray-600 dark:text-gray-300">Tarif</span>
+              <span className="font-medium text-gray-900 dark:text-white">
+                {participants <= 2 ? '29 €' : participants <= 4 ? '27 €' : '25 €'} / personne
+              </span>
+            </div>
+          </>
+        )}
+        
+        {selectedDuration && selectedDuration.id === '30min' && (
+          <div className="flex justify-between mb-2">
+            <span className="text-gray-600 dark:text-gray-300">Prix de base</span>
+            <span className="font-medium text-gray-900 dark:text-white">{basePrice} € / personne</span>
+          </div>
+        )}
         
         <div className="flex justify-between mb-2">
           <span className="text-gray-600 dark:text-gray-300">Nombre de participants</span>
@@ -138,7 +175,7 @@ function ParticipantSelector({ selectedExperience, onParticipantsSelect, onBack 
         
         {savings > 0 && (
           <div className="flex justify-between mb-2 text-green-600 dark:text-green-400">
-            <span>Réduction de groupe</span>
+            <span>Réduction</span>
             <span>-{savings} €</span>
           </div>
         )}

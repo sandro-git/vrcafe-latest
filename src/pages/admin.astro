@@ -1,0 +1,128 @@
+---
+// Page d'administration du système de réservation
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Title from "../components/Title.astro";
+import AdminReservations from "../components/reservation/AdminReservations";
+import { getCollection } from "astro:content";
+
+// Statistiques simples pour le tableau de bord
+const experiences = await getCollection("experiences");
+const totalExperiences = experiences.length;
+
+// Nombre d'expériences par type
+const escapeGames = experiences.filter(exp => exp.data.tag === "escapeGame").length;
+const vrGames = experiences.filter(exp => exp.data.tag === "jeuxVR").length;
+const freeroaming = experiences.filter(exp => exp.data.tag === "freeroaming").length;
+const escapeFreeroaming = experiences.filter(exp => exp.data.tag === "escapeFreeroaming").length;
+---
+
+<BaseLayout>
+  <div class="container mx-auto px-4 py-8">
+    <Title title="Administration" />
+    
+    <!-- En-tête -->
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Tableau de bord</h2>
+        <p class="text-gray-600 dark:text-gray-300">
+          Gérez les réservations et consultez les statistiques
+        </p>
+      </div>
+      
+      <div class="mt-4 md:mt-0">
+        <a
+          href="/"
+          class="px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Retour au site
+        </a>
+      </div>
+    </div>
+    
+    <!-- Cartes de statistiques -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Expériences</h3>
+        <p class="text-3xl font-bold text-blue-700 dark:text-blue-400">{totalExperiences}</p>
+      </div>
+      
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Escape Games</h3>
+        <p class="text-3xl font-bold text-purple-700 dark:text-purple-400">{escapeGames}</p>
+      </div>
+      
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Jeux VR</h3>
+        <p class="text-3xl font-bold text-green-700 dark:text-green-400">{vrGames}</p>
+      </div>
+      
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Freeroaming</h3>
+        <p class="text-3xl font-bold text-amber-700 dark:text-amber-400">{freeroaming + escapeFreeroaming}</p>
+      </div>
+    </div>
+    
+    <!-- Onglets -->
+    <div class="mb-8">
+      <div class="border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+          <li class="mr-2">
+            <a
+              href="#"
+              class="inline-block p-4 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-400 dark:border-blue-400"
+              aria-current="page"
+            >
+              Réservations
+            </a>
+          </li>
+          <li class="mr-2">
+            <a
+              href="#"
+              class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+            >
+              Créneaux
+            </a>
+          </li>
+          <li class="mr-2">
+            <a
+              href="#"
+              class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+            >
+              Expériences
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Gestionnaire de réservations (React) -->
+    <AdminReservations client:load />
+  </div>
+</BaseLayout>
+
+<script>
+  // Simple gestion des onglets
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.border-b ul li a');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Retirer la classe active de tous les onglets
+        tabs.forEach(t => {
+          t.classList.remove('border-blue-600', 'dark:text-blue-400', 'dark:border-blue-400', 'active');
+          t.classList.add('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
+        });
+        
+        // Ajouter la classe active à l'onglet cliqué
+        e.target.classList.remove('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300');
+        e.target.classList.add('border-blue-600', 'dark:text-blue-400', 'dark:border-blue-400', 'active');
+        
+        // Logique pour afficher le contenu de l'onglet (à implémenter)
+        const tabName = e.target.innerText.toLowerCase();
+        console.log(`Onglet sélectionné: ${tabName}`);
+      });
+    });
+  });
+</script>

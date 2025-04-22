@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, onBack }) {
+function DateTimeSelector({ selectedExperience, selectedDuration, participants, onDateTimeSelect, onBack }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
@@ -69,27 +69,72 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
     generateCalendarDays();
   }, [currentMonth]);
 
+  // Générer des créneaux horaires en fonction de la date sélectionnée et de la durée
   useEffect(() => {
-    if (selectedDate && selectedExperience) {
+    if (selectedDate && selectedExperience && selectedDuration) {
       const fetchAvailableTimeSlots = async () => {
         try {
           setLoading(true);
           setError(null);
           
           const formattedDate = selectedDate.toISOString().split('T')[0];
+          const experienceType = selectedExperience.type;
+          const durationId = selectedDuration.id;
           
           // Simuler l'appel API pour le moment
-          // À remplacer par un vrai appel API plus tard
           await new Promise(resolve => setTimeout(resolve, 1000));
           
-          // Simuler des créneaux disponibles
-          const mockTimeSlots = [
-            { id: 1, start: '10:00', end: '11:30' },
-            { id: 2, start: '12:00', end: '13:30' },
-            { id: 3, start: '14:00', end: '15:30' },
-            { id: 4, start: '16:00', end: '17:30' },
-            { id: 5, start: '18:00', end: '19:30' }
-          ];
+          // Générer des créneaux différents selon la durée
+          let mockTimeSlots = [];
+          
+          if (durationId === '30min') {
+            mockTimeSlots = [
+              { id: 1, start: '10:00', end: '10:30' },
+              { id: 2, start: '11:00', end: '11:30' },
+              { id: 3, start: '12:00', end: '12:30' },
+              { id: 4, start: '14:00', end: '14:30' },
+              { id: 5, start: '15:00', end: '15:30' },
+              { id: 6, start: '16:00', end: '16:30' },
+              { id: 7, start: '17:00', end: '17:30' },
+              { id: 8, start: '18:00', end: '18:30' },
+              { id: 9, start: '19:00', end: '19:30' }
+            ];
+          } else {
+            mockTimeSlots = [
+              { id: 10, start: '10:00', end: '11:00' },
+              { id: 11, start: '11:30', end: '12:30' },
+              { id: 12, start: '13:00', end: '14:00' },
+              { id: 13, start: '14:30', end: '15:30' },
+              { id: 14, start: '16:00', end: '17:00' },
+              { id: 15, start: '17:30', end: '18:30' },
+              { id: 16, start: '19:00', end: '20:00' }
+            ];
+          }
+          
+          // Peut-être filtrer selon le jour de la semaine ou l'expérience
+          const dayOfWeek = selectedDate.getDay();
+          const isWeekend = dayOfWeek === 0 || dayOfWeek === 6; // Dimanche ou samedi
+          
+          // Si c'est le week-end, on propose plus de créneaux
+          if (isWeekend) {
+            if (durationId === '30min') {
+              mockTimeSlots.push(
+                { id: 17, start: '09:30', end: '10:00' },
+                { id: 18, start: '20:00', end: '20:30' }
+              );
+            } else {
+              mockTimeSlots.push(
+                { id: 19, start: '09:00', end: '10:00' },
+                { id: 20, start: '20:30', end: '21:30' }
+              );
+            }
+          }
+          
+          // Simule un taux d'occupation différent selon l'expérience
+          if (experienceType === 'escapeGame' || experienceType === 'escapeFreeroaming') {
+            // Supprime aléatoirement certains créneaux pour simuler des créneaux occupés
+            mockTimeSlots = mockTimeSlots.filter(() => Math.random() > 0.3);
+          }
           
           setAvailableTimeSlots(mockTimeSlots);
         } catch (err) {
@@ -105,7 +150,7 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
       setAvailableTimeSlots([]);
       setSelectedTimeSlot(null);
     }
-  }, [selectedDate, selectedExperience]);
+  }, [selectedDate, selectedExperience, selectedDuration]);
 
   const goToPreviousMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
@@ -142,13 +187,13 @@ function DateTimeSelector({ selectedExperience, participants, onDateTimeSelect, 
         Choisissez une date et un horaire
       </h2>
       
-      {selectedExperience && (
+      {selectedExperience && selectedDuration && (
         <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
           <h3 className="font-medium text-gray-900 dark:text-white">
             {selectedExperience.name}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-300">
-            {participants} {participants > 1 ? 'participants' : 'participant'}
+            {selectedDuration.title} - {participants} {participants > 1 ? 'participants' : 'participant'}
           </p>
         </div>
       )}

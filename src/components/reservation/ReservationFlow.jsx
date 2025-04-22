@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ExperienceSelector from './ExperienceSelector';
+import DurationSelector from './DurationSelector';
 import ParticipantSelector from './ParticipantSelector';
 import DateTimeSelector from './DateTimeSelector';
 import CustomerForm from './CustomerForm';
@@ -10,6 +11,7 @@ function ReservationFlow() {
   const [currentStep, setCurrentStep] = useState(1);
   const [reservationData, setReservationData] = useState({
     experience: null,
+    duration: null,
     participants: 1,
     date: null,
     timeSlot: null,
@@ -41,6 +43,11 @@ function ReservationFlow() {
     updateReservationData({ experience });
     goToNextStep();
   };
+  
+  const handleDurationSelect = (duration) => {
+    updateReservationData({ duration });
+    goToNextStep();
+  };
 
   const handleParticipantsSelect = (participants, price) => {
     updateReservationData({ participants, price });
@@ -67,29 +74,39 @@ function ReservationFlow() {
         );
       case 2:
         return (
-          <ParticipantSelector 
+          <DurationSelector 
             selectedExperience={reservationData.experience}
-            onParticipantsSelect={handleParticipantsSelect}
+            onDurationSelect={handleDurationSelect}
             onBack={goToPreviousStep}
           />
         );
       case 3:
         return (
+          <ParticipantSelector 
+            selectedExperience={reservationData.experience}
+            selectedDuration={reservationData.duration}
+            onParticipantsSelect={handleParticipantsSelect}
+            onBack={goToPreviousStep}
+          />
+        );
+      case 4:
+        return (
           <DateTimeSelector 
             selectedExperience={reservationData.experience}
+            selectedDuration={reservationData.duration}
             participants={reservationData.participants}
             onDateTimeSelect={handleDateTimeSelect}
             onBack={goToPreviousStep}
           />
         );
-      case 4:
+      case 5:
         return (
           <CustomerForm 
             onSubmit={handleCustomerInfoSubmit}
             onBack={goToPreviousStep}
           />
         );
-      case 5:
+      case 6:
         return (
           <ReservationSummary 
             reservationData={reservationData}
@@ -103,7 +120,7 @@ function ReservationFlow() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <ProgressIndicator currentStep={currentStep} totalSteps={5} />
+      <ProgressIndicator currentStep={currentStep} totalSteps={6} />
       <div className="mt-8">
         {renderStep()}
       </div>

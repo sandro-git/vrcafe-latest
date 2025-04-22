@@ -4,6 +4,7 @@ function ProgressIndicator({ currentStep, totalSteps }) {
   // Noms des étapes
   const stepNames = [
     'Expérience',
+    'Durée',
     'Participants',
     'Date & Heure',
     'Informations',

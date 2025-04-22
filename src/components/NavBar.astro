@@ -1,7 +1,7 @@
 ---
 import Logo from "../assets/logo.png";
 import { Image } from "astro:assets";
-import BookingButton from "./BookingButton.astro";
+import DualBookingButton from "./DualBookingButton.astro";
 
 const links = [
   {
@@ -48,10 +48,9 @@ const links = [
       >
     </a>
     <!-- Button -->
-    <BookingButton id="MainButton" />
+    <DualBookingButton id="MainButton" showChoice={true} />
 
     <!-- Menu -->
-
     <div
       class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
       id="navbar-sticky"
