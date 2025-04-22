@@ -27,6 +27,16 @@ function DurationSelector({ selectedExperience, onDurationSelect, onBack }) {
     }
   ];
 
+  // Filtrer les durées disponibles selon le type d'expérience
+  const availableDurations = durations.filter(duration => {
+    // Pour les escape games (VR et sans fil), uniquement afficher l'option 1h
+    if (selectedExperience?.type === 'escapeGame' || selectedExperience?.type === 'escapeFreeroaming') {
+      return duration.id === '1h';
+    }
+    // Pour les autres types d'expérience, afficher toutes les options
+    return true;
+  });
+
   return (
     <div className="max-w-4xl mx-auto">
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
@@ -42,7 +52,7 @@ function DurationSelector({ selectedExperience, onDurationSelect, onBack }) {
       )}
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        {durations.map((duration) => (
+        {availableDurations.map((duration) => (
           <div
             key={duration.id}
             className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"

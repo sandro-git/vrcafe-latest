@@ -17,14 +17,14 @@ function ParticipantSelector({ selectedExperience, selectedDuration, onParticipa
           newLimits = { min: 1, max: 6 };
           break;
         case 'jeuxVR':
-          newLimits = { min: 1, max: 8 };
+          newLimits = { min: 1, max: 6 };
           break;
         case 'freeroaming':
-          newLimits = { min: 2, max: 6 };
+          newLimits = { min: 1, max: 4 };
           newBasePrice = selectedDuration.id === '30min' ? 25 : 29;
           break;
         case 'escapeFreeroaming':
-          newLimits = { min: 2, max: 4 };
+          newLimits = { min: 1, max: 4 };
           newBasePrice = selectedDuration.id === '30min' ? 25 : 29;
           break;
         default:
@@ -33,24 +33,26 @@ function ParticipantSelector({ selectedExperience, selectedDuration, onParticipa
       
       setLimits(newLimits);
       setBasePrice(newBasePrice);
-      setParticipants(newLimits.min);
+      // Réajuster le nombre de participants si nécessaire
+      if (participants > newLimits.max) {
+        setParticipants(newLimits.max);
+      }
+      if (participants < newLimits.min) {
+        setParticipants(newLimits.min);
+      }
     }
   }, [selectedExperience, selectedDuration]);
 
   // Calculer le prix total en fonction du nombre de participants et de la durée
   useEffect(() => {
     const calculatePrice = () => {
-      // Prix standard pour session de 30 minutes
       if (selectedDuration && selectedDuration.id === '30min') {
-        let totalPrice = basePrice * participants;
-        
-        if (participants >= 6) {
-          totalPrice = totalPrice * 0.9; // 10% de réduction
-        } else if (participants >= 4) {
-          totalPrice = totalPrice * 0.95; // 5% de réduction
+        // Prix fixe de 25€/personne pour freeroaming et escapeFreeroaming en 30min
+        if (selectedExperience.type === 'freeroaming' || selectedExperience.type === 'escapeFreeroaming') {
+          return 25 * participants;
         }
-        
-        return Math.round(totalPrice);
+        // Prix fixe de 18€/personne pour les autres expériences en 30min
+        return 18 * participants;
       } 
       // Tarification spéciale pour session d'1 heure
       else {
@@ -69,7 +71,7 @@ function ParticipantSelector({ selectedExperience, selectedDuration, onParticipa
     };
     
     setPrice(calculatePrice());
-  }, [participants, basePrice, selectedDuration]);
+  }, [participants, selectedDuration, selectedExperience]);
 
   const increaseParticipants = () => {
     if (participants < limits.max) {
@@ -86,11 +88,8 @@ function ParticipantSelector({ selectedExperience, selectedDuration, onParticipa
   // Calculer le prix par personne
   const pricePerPerson = price / participants;
   
-  // Calculer les économies (si applicable, principalement pour la session de 30min)
-  let standardPrice = basePrice * participants;
-  let savings = standardPrice - price;
-  
-  // Pour la session d'une heure, calculer les économies par rapport au tarif standard
+  // Calculer les économies uniquement pour la session d'une heure
+  let savings = 0;
   if (selectedDuration && selectedDuration.id === '1h' && participants > 2) {
     const standardHourPrice = 29 * participants;
     savings = standardHourPrice - price;

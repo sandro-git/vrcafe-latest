@@ -2,10 +2,8 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Récupérer les données du corps de la requête
     const data = await request.json();
     
-    // Valider les données
     const { 
       experienceId, 
       experienceSlug, 
@@ -20,28 +18,67 @@ export const POST: APIRoute = async ({ request }) => {
       specialRequests 
     } = data;
     
-    // Vérifier que tous les champs obligatoires sont présents
-    if (!experienceId || !experienceSlug || !date || !timeSlotId || !customerName || !customerEmail || !customerPhone || !numberOfPeople || !duration || !price) {
+    // Vérification des champs obligatoires
+    if (!experienceId || !experienceSlug || !date || !timeSlotId || !customerName || 
+        !customerEmail || !customerPhone || !numberOfPeople || !duration || !price) {
       return new Response(
         JSON.stringify({ error: 'Tous les champs obligatoires doivent être renseignés' }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validation de la date (doit être dans le futur)
+    const reservationDate = new Date(date);
+    const now = new Date();
+    if (reservationDate <= now) {
+      return new Response(
+        JSON.stringify({ error: 'La date de réservation doit être dans le futur' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validation du prix (doit être un nombre positif)
+    if (typeof price !== 'number' || price <= 0) {
+      return new Response(
+        JSON.stringify({ error: 'Le prix doit être un nombre positif' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validation du nombre de participants selon le type d'expérience
+    const maxParticipants = ['freeroaming', 'escapeFreeroaming'].includes(experienceSlug) ? 4 : 6;
+    const minParticipants = 1;
+
+    if (numberOfPeople < minParticipants || numberOfPeople > maxParticipants) {
+      return new Response(
+        JSON.stringify({ 
+          error: `Le nombre de participants doit être entre ${minParticipants} et ${maxParticipants} pour ce type d'expérience` 
+        }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validation du format email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(customerEmail)) {
+      return new Response(
+        JSON.stringify({ error: 'Le format de l\'email est invalide' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validation du numéro de téléphone (format français)
+    const phoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
+    if (!phoneRegex.test(customerPhone)) {
+      return new Response(
+        JSON.stringify({ error: 'Le format du numéro de téléphone est invalide' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
     
-    // Simuler la création d'une réservation
-    // Dans une implémentation réelle, cela écrirait dans Astro DB
-    
-    // Générer un identifiant lisible pour la réservation (préfixe + ID)
-    const reservationId = Math.floor(Math.random() * 10000); // Simulé
+    // Génération de l'identifiant de réservation
+    const reservationId = Math.floor(Math.random() * 10000);
     const readableId = `VR-${new Date().getFullYear().toString().slice(2)}-${reservationId.toString().padStart(5, '0')}`;
-    
-    // À ce stade, vous pourriez envoyer un email de confirmation
-    // Cette fonctionnalité peut être ajoutée ultérieurement
     
     return new Response(
       JSON.stringify({
@@ -62,26 +99,14 @@ export const POST: APIRoute = async ({ request }) => {
           createdAt: new Date().toISOString()
         }
       }),
-      {
-        status: 201,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
+      { status: 201, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
     console.error('Erreur lors de la création de la réservation:', error);
     
     return new Response(
-      JSON.stringify({ 
-        error: 'Une erreur est survenue lors de la création de la réservation' 
-      }),
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
+      JSON.stringify({ error: 'Une erreur est survenue lors de la création de la réservation' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 };

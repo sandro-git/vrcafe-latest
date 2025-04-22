@@ -10,10 +10,17 @@ function ReservationSummary({ reservationData, onBack }) {
       setIsSubmitting(true);
       setSubmitError(null);
 
+      // Validation des données requises
+      if (!reservationData.experience || !reservationData.date || !reservationData.timeSlot || 
+          !reservationData.customerInfo || !reservationData.customerInfo.name || 
+          !reservationData.customerInfo.email || !reservationData.customerInfo.phone) {
+        throw new Error('Certaines informations requises sont manquantes');
+      }
+
       // Préparation des données pour l'API
       const payload = {
         experienceId: reservationData.experience.id,
-        experienceSlug: reservationData.experience.id,
+        experienceSlug: reservationData.experience.type,
         date: reservationData.date.toISOString(),
         timeSlotId: reservationData.timeSlot.id,
         customerName: reservationData.customerInfo.name,
@@ -34,17 +41,19 @@ function ReservationSummary({ reservationData, onBack }) {
         body: JSON.stringify(payload)
       });
 
+      const responseData = await response.json();
+
       if (!response.ok) {
-        throw new Error('Erreur lors de la création de la réservation');
+        throw new Error(responseData.error || 'Erreur lors de la création de la réservation');
       }
 
-      const responseData = await response.json();
       setReservationNumber(responseData.id);
 
-      // Redirection vers une page de confirmation avec le numéro de référence
+      // Redirection vers la page de confirmation
       window.location.href = `/reservation-confirmation?ref=${responseData.id}`;
     } catch (error) {
-      setSubmitError('Une erreur est survenue lors de la finalisation de votre réservation. Veuillez réessayer.');
+      console.error('Erreur de réservation:', error);
+      setSubmitError(error.message || 'Une erreur est survenue lors de la finalisation de votre réservation. Veuillez réessayer.');
     } finally {
       setIsSubmitting(false);
     }
@@ -101,27 +110,6 @@ function ReservationSummary({ reservationData, onBack }) {
               {reservationData.participants}
             </span>
           </div>
-          
-          {/* Durée et tarif spécifique */}
-          {reservationData.duration && reservationData.duration.id === '1h' && (
-            <div className="flex justify-between mb-2">
-              <span className="text-gray-600 dark:text-gray-300">Tarif horaire</span>
-              <span className="font-medium text-gray-900 dark:text-white">
-                {reservationData.participants <= 2 ? '29' : 
-                reservationData.participants <= 4 ? '27' : '25'} € / personne
-              </span>
-            </div>
-          )}
-          
-          {reservationData.duration && reservationData.duration.id === '30min' && (
-            <div className="flex justify-between mb-2">
-              <span className="text-gray-600 dark:text-gray-300">Tarif 30 minutes</span>
-              <span className="font-medium text-gray-900 dark:text-white">
-                {reservationData.experience.type === 'freeroaming' || 
-                  reservationData.experience.type === 'escapeFreeroaming' ? '25' : '18'} € / personne
-              </span>
-            </div>
-          )}
           
           <div className="flex justify-between">
             <span className="text-gray-900 dark:text-white font-medium">Total</span>
