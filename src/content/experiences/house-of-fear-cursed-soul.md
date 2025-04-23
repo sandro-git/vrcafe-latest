@@ -3,7 +3,7 @@ id: 14
 name: "House of Fear - Cursed Soul"
 slug: "house-of-fear-cursed-soul"
 image: "src/assets/images/experiences/house-of-fear-cursed-soul.jpg"
-youtube: "https://youtu.be/ScIL0_ksWn8"
+youtube: "https://youtu.be/hBzLKe4pn7U?si=mfbYu5sCPMu5XCxs"
 tag: "escapeGame"
 editeur: "arvi"
 ---

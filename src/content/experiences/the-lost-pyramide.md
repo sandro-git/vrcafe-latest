@@ -3,7 +3,7 @@ id: 18
 name: "The Lost Pyramide"
 slug: "the-lost-pyramide"
 image: "the-lost-pyramide.jpg"
-youtube: "https://youtu.be/s09kR7LXBr8"
+youtube: "https://youtu.be/gPnpwGzpW08?si=eFlpD5IzTqWT7hH0"
 tag: "escapeGame"
 editeur: "ubisoft"
 ---

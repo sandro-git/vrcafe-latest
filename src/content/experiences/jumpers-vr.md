@@ -3,7 +3,7 @@ id: 40
 name: "Jumpers VR"
 slug: "jumpers-vr"
 image: "src/assets/images/experiences/jumpers-vr.jpg"
-youtube: "https://youtu.be/QvNFt5GUhGQ"
+youtube: "https://youtu.be/CuDKuPqOEOw?si=ZJyCuoML7X9oVo1Q"
 tag: "escapeGame"
 editeur: "ubisoft"
 ---

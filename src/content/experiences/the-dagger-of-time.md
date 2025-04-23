@@ -3,7 +3,7 @@ id: 11
 name: "The Dagger of Time"
 slug: "the-dagger-of-time"
 image: "the-dagger-of-time.jpg"
-youtube: "https://youtu.be/nBZvzBoORos"
+youtube: "https://youtu.be/SG_c6Zdqpr8?si=Za13ZJ7cfyEO_nsu"
 tag: "escapeGame"
 editeur: "ubisoft"
 ---

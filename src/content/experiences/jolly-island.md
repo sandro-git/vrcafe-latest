@@ -3,7 +3,7 @@ id: 8
 name: "Jolly Island"
 slug: "jolly-island"
 image: "src/assets/images/experiences/jolly-island.jpg"
-youtube: "https://youtu.be/mVo40ajvPFE"
+youtube: "https://youtu.be/0ioCokL4Flc?si=F08Hj8YZqLg7vzz-"
 tag: "jeuxVR"
 editeur: "ldlc"
 ---

@@ -3,7 +3,7 @@ id: 25
 name: "Kraken Island "
 slug: "kraken-island"
 image: "src/assets/images/experiences/kraken-island.png"
-youtube: "https://www.youtube.com/watch?v=sbxA_AG01ns"
+youtube: "https://youtu.be/H_iDFVhfWDU?si=quIWCMcAi6Ddr7ev"
 tag: "freeroaming"
 editeur: "vex"
 ---

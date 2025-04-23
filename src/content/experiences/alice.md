@@ -3,7 +3,7 @@ id: 36
 name: "Alice"
 slug: "alice"
 image: "alice.jpg"
-youtube: "https://www.youtube.com/watch?v=zUFHibhJWTc"
+youtube: "https://youtu.be/1YjCEIZWOLE?si=nZL5EYbLrTbt7b-P"
 tag: "escapeGame"
 editeur: "arvi"
 ---

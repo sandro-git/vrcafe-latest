@@ -3,7 +3,7 @@ id: 38
 name: "Ragnarok"
 slug: "ragnarok"
 image: "ragnarok.jpg"
-youtube: "https://www.youtube.com/watch?v=ZKKs_wMC5rc"
+youtube: "https://youtu.be/ZKKs_wMC5rc?si=07eul61S2n6b4Tcl"
 tag: "jeuxVR"
 editeur: "octopod"
 ---

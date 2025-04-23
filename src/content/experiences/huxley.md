@@ -3,14 +3,14 @@ id: 12
 name: "Huxley"
 slug: "huxley"
 image: "huxley.jpg"
-youtube: "https://youtu.be/Y4ylkiFI5TY"
+youtube: "https://youtu.be/f8XTBQcFcmw?si=RxtDXvihJtnRahbb"
 tag: "escapeGame"
 editeur: "ubisoft"
 ---
 
-Nous sommes en 3007, il n'y a plus aucune trace de vie sur Terre. Vous faites partie des derniers survivants de la race humaine et travaillez sur une base spatiale. 
+Nous sommes en 3007, il n'y a plus aucune trace de vie sur Terre. Vous faites partie des derniers survivants de la race humaine et travaillez sur une base spatiale.
 
-Le monde, tel que vous le connaissez, a disparu. L’humanité a été remplacée par des machines. 
+Le monde, tel que vous le connaissez, a disparu. L’humanité a été remplacée par des machines.
 
 Tout ce dont vous avez besoin pour réussir se trouve au sein de votre équipe : de l'adrénaline, un esprit de combat et un désir de gagner.
 

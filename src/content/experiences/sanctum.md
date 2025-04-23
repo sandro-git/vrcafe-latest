@@ -3,7 +3,7 @@ id: 29
 name: "Sanctum"
 slug: "sanctum"
 image: "sanctum.jpg"
-youtube: "https://youtu.be/mVTdHgwPZOY"
+youtube: "https://youtu.be/4CH_1BE0UxA?si=GHZ9tC8kFrq4eKbO"
 tag: "escapeGame"
 editeur: "arvi"
 ---

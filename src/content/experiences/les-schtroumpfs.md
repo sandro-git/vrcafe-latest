@@ -3,7 +3,7 @@ id: 39
 name: "Les Schtroumpfs"
 slug: "les-schtroumpfs"
 image: "src/assets/images/experiences/les-schtroumpfs.png"
-youtube: "https://youtu.be/Sm3UAdZibkc"
+youtube: "https://youtu.be/Sm3UAdZibkc?si=Y5tTpuqnZWNvZ6am"
 tag: "freeroaming"
 editeur: "vex"
 ---

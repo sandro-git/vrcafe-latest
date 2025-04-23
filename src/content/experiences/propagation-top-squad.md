@@ -3,7 +3,7 @@ id: 38
 name: "Propagation Top Squad"
 slug: "propagation-top-squad"
 image: "src/assets/images/experiences/propagation-top-squad.png"
-youtube: "https://youtu.be/icx-vOGeK5U"
+youtube: "https://youtu.be/cXvnZXbEGNY?si=yiSyYb_rFPiPv3-0"
 tag: "jeuxVR"
 editeur: "octopod"
 ---

@@ -3,7 +3,7 @@ id: 42
 name: "Rune Tale UnderGround"
 slug: "rune-tale-underground"
 image: "src/assets/images/experiences/rune-tale-underground.png"
-youtube: "https://youtu.be/rPEFGGXmtvY"
+youtube: "https://youtu.be/ARyoyudCSew?si=Ii58Wn-sRU8QEih7"
 tag: "jeuxVR"
 editeur: "ldlc"
 ---

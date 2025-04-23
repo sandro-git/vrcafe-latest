@@ -3,7 +3,7 @@ id: 43
 name: "Smash Point"
 slug: "smash-point"
 image: "src/assets/images/experiences/smash-point.jpg"
-youtube: "https://youtu.be/HgqJsQ3XnjA"
+youtube: "https://youtu.be/Lkjd92GBEPY?si=CcmZqYnzhm_oJm26"
 tag: "jeuxVR"
 editeur: "arvi"
 ---

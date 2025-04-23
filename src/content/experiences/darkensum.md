@@ -3,7 +3,7 @@ id: 41
 name: "Darkensum"
 slug: "darkensum"
 image: "src/assets/images/experiences/darkensum.png"
-youtube: "https://youtu.be/cR2JNpSbk-E"
+youtube: "https://youtu.be/7oD0-GGdiOY?si=-6i8yevQYtufh4fO"
 tag: "jeuxVR"
 editeur: "ldlc"
 ---

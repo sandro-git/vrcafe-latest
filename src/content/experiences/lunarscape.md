@@ -3,7 +3,7 @@ id: 27
 name: "Lunarscape"
 slug: "lunarscape"
 image: "src/assets/images/experiences/lunarscape.jpg"
-youtube: "https://youtu.be/CVJrp6p3HdU"
+youtube: "https://youtu.be/_Hck1gIyci0?si=Umf_OkKNsvAUQMnT"
 tag: "freeroaming"
 editeur: "vex"
 ---

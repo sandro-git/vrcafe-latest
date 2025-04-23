@@ -3,7 +3,7 @@ id: 23
 name: "The Parvus Box "
 slug: "the-parvus-box"
 image: "src/assets/images/experiences/the-parvus-box.png"
-youtube: "https://youtu.be/KEyVE0E3IHg"
+youtube: "https://youtu.be/KEyVE0E3IHg?si=t1crzZv7i4HH8R8S"
 tag: "escapeFreeroaming"
 editeur: "vex"
 ---

@@ -3,7 +3,7 @@ id: 28
 name: "Medusa Gate"
 slug: "medusa-gate"
 image: "medusa-gate.jpg"
-youtube: "https://youtu.be/KnLLWAiP-uE"
+youtube: "https://youtu.be/33M2qq5ikTk?si=oOgSMimNMXoYNr7i"
 tag: "escapeGame"
 editeur: "ubisoft"
 ---
