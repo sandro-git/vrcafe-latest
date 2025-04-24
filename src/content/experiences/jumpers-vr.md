@@ -6,13 +6,5 @@ image: "src/assets/images/experiences/jumpers-vr.jpg"
 youtube: "https://youtu.be/QvNFt5GUhGQ"
 tag: "escapeGame"
 editeur: "ubisoft"
+text: "L'agence « Unravel Corp » spécialisée dans les phénomènes inexpliqués est à la recherche de nouveaux agents confirmés pour une mission à hauts risques. Les radars ont détecté une onde inconnue venant d'un artefact vieux de 5 000 ans, selon les estimations. Il a été localisé en dessous d'une mine désaffectée non répertoriée au Mexique. L'agence détient un laboratoire secret dans lequel elle a mis au point une machine à téléportation pour vous rendre à des endroits inaccessibles par l'homme."
 ---
-
-L’agence « Unravel Corp » spécialisée dans les phénomènes inexpliqués est à la recherche de nouveaux agents confirmés pour une mission à hauts risques.
-Les radars ont détecté une onde inconnue venant d’un artefact vieux de 5 000 ans, selon les estimations. Il a été localisé en dessous d’une mine désaffectée non répertoriée au Mexique.
-L’agence détient un laboratoire secret dans lequel elle a mis au point une machine à téléportation pour vous rendre à des endroits inaccessibles par l’homme.
-Votre mission consiste à trouver l’artefact sans vous faire tuer. Vous n’aurez que 50 minutes pour revenir, après ce délai il n’y aura plus de retour possible.
-
-Bonne chance.
-
-Ps : Attention ! L’agence décline toute responsabilité en cas de mauvaise utilisation du téléporteur.

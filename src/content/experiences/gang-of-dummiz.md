@@ -6,6 +6,5 @@ image: "src/assets/images/experiences/gang-of-dummiz.png"
 youtube: "https://youtu.be/SHebjA5dtpg"
 tag: "jeuxVR"
 editeur: "ldlc"
+text: ""
 ---
-
-
