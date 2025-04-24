@@ -2,7 +2,7 @@
 id: 36
 name: "Alice"
 slug: "alice"
-image: "/Users/sandro/Code/vrcafe-latest/src/assets/images/experiences/alice.jpg"
+image: "src/assets/images/experiences/alice.jpg"
 youtube: "zUFHibhJWTc"
 tag: "escapeGame"
 editeur: "arvi"

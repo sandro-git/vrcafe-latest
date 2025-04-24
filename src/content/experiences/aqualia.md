@@ -2,7 +2,7 @@
 id: 37
 name: "Aqualia"
 slug: "aqualia"
-image: "aqualia.png"
+image: "src/assets/images/experiences/aqualia.png"
 youtube: "https://www.youtube.com/watch?v=cyIqJnmEayU"
 tag: "jeuxVR"
 editeur: "octopod"

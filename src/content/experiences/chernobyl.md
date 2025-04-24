@@ -2,7 +2,7 @@
 id: 24
 name: "Chernobyl"
 slug: "chernobyl"
-image: "chernobyl.jpg"
+image: "src/assets/images/experiences/chernobyl.jpg"
 youtube: "https://youtu.be/AZzWC92dd6M"
 tag: "escapeGame"
 editeur: "arvi"

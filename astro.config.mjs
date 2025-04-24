@@ -8,24 +8,10 @@ import icon from 'astro-icon';
 // https://astro.build/config
 export default defineConfig({
   site: "https://vr-cafe.fr",
-  image: {
-    remotePatterns: [{
-      protocol: "https"
-    }],
-    service: {
-      entrypoint: 'astro/assets/services/sharp'
-    },
-    domains: ['vr-cafe.fr']
-  },
   integrations: [
-    tailwind(), 
-    react(),
-    db(), // Astro DB pour le système de réservation
     sitemap(),
     icon(),
+    tailwind(),
+    react()
   ],
-  server: {
-    port: 4321,
-    host: true
-  }
 });
