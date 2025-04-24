@@ -8,34 +8,23 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "migrate-content": "node script/migrate-sanity-to-collections.js",
-    "move-images": "zsh script/move-images.sh",
-    "modify-md-files": "node script/modify-md-files.js"
+    "astro": "astro"
   },
   "dependencies": {
     "@astro-community/astro-embed-youtube": "^0.5.3",
-    "@astrojs/react": "^3.6.2",
-    "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.2",
-    "@astrojs/vue": "^4.5.2",
-    "@headlessui/vue": "^1.7.23",
-    "@heroicons/vue": "^2.1.5",
-    "@sanity/astro": "^3.1.6",
-    "@sanity/client": "^6.21.3",
-    "@sanity/image-url": "^1.0.2",
-    "@sanity/visual-editing": "^2.1.9",
+    "@astrojs/db": "^0.14.12",
+    "@astrojs/react": "^4.2.5",
+    "@astrojs/sitemap": "^3.3.1",
+    "@astrojs/tailwind": "^6.0.2",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
-    "astro": "^4.16.2",
+    "astro": "^5.7.5",
     "astro-icon": "^1.1.0",
-    "flowbite": "^2.3.0",
     "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sanity": "^3.57.1",
-    "tailwindcss": "^3.4.4",
-    "vue": "^3.5.8"
+    "sharp": "^0.34.1",
+    "tailwindcss": "^3.4.4"
   },
   "devDependencies": {
     "@iconify-json/icon-park-outline": "^1.1.15"

@@ -1,0 +1,26 @@
+---
+// Composant pour le suivi des conversions de réservation
+// À inclure dans la page de confirmation
+---
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Si Google Analytics est chargé
+    if (typeof window.gtag === 'function') {
+      // Extraction du numéro de réservation depuis la page
+      const reservationNumberElement = document.querySelector('[data-reservation-number]');
+      const reservationNumber = reservationNumberElement ? reservationNumberElement.getAttribute('data-reservation-number') : 'unknown';
+      
+      // Envoi de l'événement de conversion
+      gtag('event', 'reservation_completed', {
+        'event_category': 'Réservation',
+        'event_label': reservationNumber,
+        'value': 1
+      });
+      
+      console.log('Événement de conversion envoyé à Google Analytics');
+    } else {
+      console.warn('Google Analytics non détecté');
+    }
+  });
+</script>

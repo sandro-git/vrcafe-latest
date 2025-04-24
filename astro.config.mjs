@@ -1,22 +1,17 @@
-import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
-import icon from "astro-icon";
-import react from "@astrojs/react";
-import sitemap from "@astrojs/sitemap";
-
-import sanity from "@sanity/astro";
-
-import vue from "@astrojs/vue";
+import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+import react from '@astrojs/react';
+import db from '@astrojs/db';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://vr-cafe.fr",
-  image: {
-    remotePatterns: [
-      {
-        protocol: "https",
-      },
-    ],
-  },
-  integrations: [tailwind(), icon(), react(), sitemap(), , vue()],
+  integrations: [
+    tailwind(), 
+    react(),
+    db() // Astro DB pour le système de réservation
+  ],
+  server: {
+    port: 4321,
+    host: true
+  }
 });

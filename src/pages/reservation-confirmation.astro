@@ -1,0 +1,92 @@
+---
+// Layout
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Title from "../components/Title.astro";
+import ReservationTracking from "../components/analytics/ReservationTracking.astro";
+
+// Récupérer le numéro de réservation depuis l'URL si disponible
+const reservationNumber = Astro.url.searchParams.get('ref') || 'VR-25-00123';
+---
+
+<BaseLayout>
+  <Title title="Réservation Confirmée" />
+  <div class="max-w-2xl mx-auto px-4 py-8 text-center">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8">
+      <div class="flex justify-center mb-6">
+        <div class="rounded-full bg-green-100 p-3">
+          <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+      </div>
+      
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        Votre réservation est confirmée !
+      </h2>
+      
+      <p class="text-gray-600 dark:text-gray-300 mb-6">
+        Un email récapitulatif a été envoyé à l'adresse que vous avez fournie. Vous y trouverez tous les détails de votre réservation.
+      </p>
+      
+      <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-6">
+        <p class="text-gray-700 dark:text-gray-300 text-sm">
+          <span class="font-medium">Numéro de réservation :</span> 
+          <span data-reservation-number={reservationNumber}>{reservationNumber}</span>
+        </p>
+      </div>
+      
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          Informations utiles
+        </h3>
+        
+        <ul class="text-left text-gray-600 dark:text-gray-300 space-y-2">
+          <li class="flex items-start">
+            <svg class="flex-shrink-0 w-5 h-5 text-blue-700 dark:text-blue-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            Nous vous conseillons d'arriver 10 minutes avant votre créneau horaire.
+          </li>
+          <li class="flex items-start">
+            <svg class="flex-shrink-0 w-5 h-5 text-blue-700 dark:text-blue-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            Apportez une pièce d'identité pour confirmer votre réservation.
+          </li>
+          <li class="flex items-start">
+            <svg class="flex-shrink-0 w-5 h-5 text-blue-700 dark:text-blue-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            Le paiement s'effectuera sur place (carte bancaire, espèces ou chèques).
+          </li>
+          <li class="flex items-start">
+            <svg class="flex-shrink-0 w-5 h-5 text-blue-700 dark:text-blue-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            Nous vous fournirons tout l'équipement nécessaire sur place.
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="/" class="px-6 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
+        Retour à l'accueil
+      </a>
+      <a href="/contact" class="px-6 py-2 bg-blue-700 text-white font-medium rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700">
+        Nous contacter
+      </a>
+    </div>
+  </div>
+  
+  <!-- Composant de tracking pour Google Analytics -->
+  <ReservationTracking />
+</BaseLayout>
+
+<script>
+  // Ajouter au calendrier
+  document.addEventListener('DOMContentLoaded', function() {
+    // Ce script pourrait être amélioré pour utiliser les vraies données de réservation
+    console.log('Page de confirmation chargée');
+  });
+</script>
