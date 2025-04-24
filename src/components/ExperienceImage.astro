@@ -1,47 +1,69 @@
 ---
 // src/components/ExperienceImage.astro
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 const { filename, alt, width = 476, height = 476 } = Astro.props;
 
+// Traiter le cas où filename est un objet ou une chaîne
+let cleanFilename = "";
+if (typeof filename === "object") {
+  const tempName =
+    (filename as any).name ||
+    (filename as any).src ||
+    (filename as any).path ||
+    "";
+  cleanFilename =
+    typeof tempName === "string" && tempName.includes("/")
+      ? tempName.split("/").pop() || ""
+      : String(tempName);
+} else {
+  // Si c'est une chaîne, traiter normalement
+  const filenameStr = String(filename || "");
+  cleanFilename = filenameStr.includes("/")
+    ? filenameStr.split("/").pop() || ""
+    : filenameStr;
+}
+
 // Importer dynamiquement les images
 const images: Record<string, { default: ImageMetadata }> = import.meta.glob(
-  "../assets/images/experiences/*.{png,jpg,jpeg,gif}",
+  "/src/assets/images/experiences/*.{png,jpg,jpeg,gif}",
   {
     eager: true,
   }
 );
 
-// Ajouter des logs de débogage pour voir les images disponibles
-console.log("Images disponibles:", Object.keys(images));
-
-// Extraire juste le nom du fichier si un chemin complet est passé
-const filenameOnly = filename.includes("/")
-  ? filename.split("/").pop()
-  : filename;
-console.log(`Fichier d'origine: ${filename}, Fichier extrait: ${filenameOnly}`);
-
 // Trouver l'image correspondante
-const imagePath = Object.keys(images).find((path) => {
-  const pathBasename = path.split("/").pop() || "";
-  const matches = pathBasename.includes(filenameOnly);
-  console.log(`Comparaison: ${pathBasename} vs ${filenameOnly} => ${matches}`);
-  return matches;
-});
+let matchedImage: { default: ImageMetadata } | null = null;
+for (const [path, module] of Object.entries(images)) {
+  const imageName = path.split("/").pop() || "";
+  if (imageName === cleanFilename) {
+    matchedImage = module;
+    break;
+  }
+}
 
-// Ajouter un log pour déboguer
-console.log(
-  `Recherche de l'image ${filenameOnly}, trouvée: ${imagePath || "non trouvée"}`
-);
-const imageModule = imagePath ? images[imagePath] : null;
+// Si aucune correspondance exacte, essayer une correspondance partielle
+if (!matchedImage && cleanFilename) {
+  for (const [path, module] of Object.entries(images)) {
+    const imageName = path.split("/").pop() || "";
+    if (
+      imageName.includes(cleanFilename) ||
+      cleanFilename.includes(imageName)
+    ) {
+      matchedImage = module;
+      break;
+    }
+  }
+}
 ---
 
 {
-  imageModule ? (
+  matchedImage ? (
     <div class="aspect-square w-full overflow-hidden">
       <Image
-        src={imageModule.default}
-        alt={alt}
+        src={matchedImage.default}
+        alt={alt || "Image d'expérience"}
         width={width}
         height={height}
         format="avif"
@@ -49,6 +71,11 @@ const imageModule = imagePath ? images[imagePath] : null;
       />
     </div>
   ) : (
-    <p>Image non trouvée: {filename}</p>
+    <div class="flex items-center justify-center aspect-square w-full bg-gray-200 dark:bg-gray-700 rounded">
+      <p class="text-gray-500 dark:text-gray-400 text-sm p-4 text-center">
+        Image non trouvée:{" "}
+        {typeof filename === "object" ? JSON.stringify(filename) : filename}
+      </p>
+    </div>
   )
 }
