@@ -3,7 +3,7 @@ import ExperienceImage from "../components/ExperienceImage.astro";
 const { src, alt, slug } = Astro.props;
 ---
 
-<a href={"/" + slug}>
+<a href={slug}>
   <ExperienceImage
     filename={src}
     alt={alt}

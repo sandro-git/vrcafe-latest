@@ -5,5 +5,5 @@ const { experiences } = Astro.props;
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 container mx-auto">
-  {experiences.map((exp: any) => <Card game={exp} slug={exp.slug} />)}
+  {experiences.map((exp: any) => <Card game={exp} slug={exp.data.slug} />)}
 </div>
