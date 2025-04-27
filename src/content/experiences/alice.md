@@ -3,7 +3,7 @@ id: 36
 name: Alice
 slug: alice
 image: src/assets/images/experiences/alice.jpg
-youtube: 'https://youtu.be/1YjCEIZWOLE'
+youtube: "https://youtu.be/1YjCEIZWOLE"
 tag: escapeGame
 editeur: arvi
 text: >-
@@ -20,4 +20,3 @@ text: >-
   château et tentez de parvenir enfin à vaincre la Reine de cœur, renverser le
   sort de la tour de l'horloge et sauver le Pays des Merveilles.
 ---
-
