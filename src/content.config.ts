@@ -1,9 +1,10 @@
 // 1. Import utilities from `astro:content`
 import { defineCollection, z } from "astro:content";
-
+import { glob } from 'astro/loaders';
 // Définition du schéma pour la collection des expériences
 const experiencesCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/experiences" }),
+
   schema:({image})=> z.object({
     id: z.number(),
     name: z.string(),
