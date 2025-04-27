@@ -4,6 +4,14 @@ const { experiences } = Astro.props;
 // Interface pour les données spécifiques à l'expérience
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 container mx-auto">
-  {experiences.map((exp: any) => <Card game={exp} slug={exp.slug} />)}
+<div
+  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 container mx-auto px-4"
+>
+  {
+    experiences.map((exp: any) => (
+      <div class="w-full">
+        <Card game={exp} slug={exp.slug} />
+      </div>
+    ))
+  }
 </div>

@@ -2,83 +2,83 @@
 // src/components/ExperienceImage.astro
 import { Image } from "astro:assets";
 
-const {
-  filename,
-  alt,
-  width = 476,
-  height = 476,
-  class: className,
-} = Astro.props;
+const { filename, alt, class: className } = Astro.props;
 
 // Importer dynamiquement toutes les images avec leur métadonnées
-// L'option "eager: true" est importante pour que les imports soient disponibles immédiatement
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "../assets/images/experiences/*.{png,jpg,jpeg,gif}",
   { eager: true }
 );
 
-// Extraire le nom du fichier à partir du chemin complet
-function extractFilename(path: any) {
+// Fonction pour extraire le nom du fichier
+function extractFilename(path: string | ImageMetadata | null) {
   if (!path) return null;
 
-  // Si c'est juste un nom de fichier sans chemin, le retourner directement
-  if (!path.includes("/")) return path;
+  // Si path est un objet, convertir en chaîne
+  let pathStr = path;
+  if (typeof path === "object" && path !== null) {
+    pathStr = path.src || String(path);
+  } else {
+    pathStr = String(path);
+  }
 
-  // Sinon extraire le nom du fichier depuis le chemin complet
-  return path.split("/").pop();
+  // Extraire le nom de fichier sans le chemin
+  const filenamePart = pathStr.split("/").pop();
+  if (!filenamePart) return null;
+
+  // Retourner le nom du fichier sans l'extension
+  return filenamePart.replace(/\.[^/.]+$/, "");
 }
 
-// Obtenir le nom du fichier extrait
+// Obtenir le nom à rechercher
 const targetFilename = extractFilename(filename);
 
-// Chercher l'image correspondante dans les images importées
+// Chercher l'image correspondante
 let imageModule = null;
-let debugInfo = [];
 
 if (targetFilename) {
-  // Parcourir toutes les images importées pour trouver une correspondance
   for (const path in images) {
     const importedFilename = path.split("/").pop() || "";
+    // Retirer l'extension pour la comparaison
+    const importedName = importedFilename.replace(/\.[^/.]+$/, "");
 
-    // Ajouter au debug pour comprendre les comparaisons effectuées
-    debugInfo.push(`Comparaison: ${importedFilename} ↔ ${targetFilename}`);
-
-    // Vérifier si le nom de fichier (sans l'extension) correspond
-    if (importedFilename.includes(targetFilename)) {
+    // Utiliser une comparaison insensible à la casse
+    if (importedName.toLowerCase() === targetFilename.toLowerCase()) {
       imageModule = images[path];
       break;
     }
   }
 }
 
-// Journaliser les informations de débogage (uniquement en développement)
+// Afficher des informations de débogage
 if (import.meta.env.DEV && !imageModule) {
+  console.log("Recherche d'image pour:", targetFilename);
+  console.log("Type de filename:", typeof filename);
+  console.log("Valeur de filename:", filename);
   console.log(
-    `Recherche d'image pour "${filename}" (extrait: "${targetFilename}")`
+    "Images disponibles:",
+    Object.keys(images).map((path) => path.split("/").pop())
   );
-  console.log(`Images disponibles:`, Object.keys(images));
-  console.log(`Tentatives de correspondance:`, debugInfo);
 }
 ---
 
-{
-  imageModule ? (
-    <Image
-      src={imageModule.default}
-      alt={alt || "Image"}
-      width={width}
-      height={height}
-      format="avif"
-      class={className}
-    />
-  ) : (
-    <div
-      class="flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-lg"
-      style={`width: ${width}px; height: ${height}px;`}
-    >
-      <p class="text-gray-500 dark:text-gray-400 text-center p-4">
-        Image non trouvée: {filename}
-      </p>
-    </div>
-  )
-}
+<div class={`aspect-square overflow-hidden rounded-lg ${className || ""}`}>
+  {
+    imageModule ? (
+      <Image
+        src={imageModule.default}
+        alt={alt || "Image"}
+        width={500}
+        height={500}
+        format="avif"
+        class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+      />
+    ) : (
+      <div class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700">
+        <p class="text-gray-500 dark:text-gray-400 text-center p-4">
+          Image non trouvée: {targetFilename || String(filename)}
+        </p>
+      </div>
+    )
+  }
+</div>

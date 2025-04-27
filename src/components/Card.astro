@@ -1,23 +1,31 @@
 ---
 import CardImage from "./CardImage.astro";
 import CardLink from "./CardLink.astro";
-// import CardText from "./CardText.astro";
 import CardTitle from "./CardTitle.astro";
-// import type { CollectionEntry } from "astro:content";
-// import type { Game } from "../types/game";
-// import type { Experience } from "../types/experience";
-// import type { Game } from "../types/game";
 const { game, slug } = Astro.props;
+
+// Extraire le nom du fichier à partir du chemin complet
+function getImageFilename(imagePath: string | ImageMetadata) {
+  if (typeof imagePath === "string") {
+    return imagePath.split("/").pop();
+  }
+  return imagePath;
+}
+
+// Extraire le nom de fichier seul pour le passer au composant
+const imageFilename = getImageFilename(game.data.image);
 ---
 
-<!-- TO DO : ajouter les boutons de filtre -->
 <div
-  class="max-w-sm mx-auto h-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+  class="w-full h-full bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800 dark:border-gray-700 flex flex-col"
 >
-  <CardImage src={game.data.image} alt={game.data.name} slug={slug} />
-  <div class="p-5 grid grid-cols-1">
-    <CardTitle display="none" title={game.name} slug={slug} />
-    <!-- <CardText display="hidden" text={text} /> -->
-    <CardLink slug={slug} />
+  <div class="flex-none">
+    <CardImage src={imageFilename} alt={game.data.name} slug={slug} />
+  </div>
+  <div class="p-4 flex-grow flex flex-col justify-between">
+    <CardTitle display="block" title={game.data.name} slug={slug} />
+    <div class="mt-auto flex justify-center pt-3">
+      <CardLink slug={slug} />
+    </div>
   </div>
 </div>
