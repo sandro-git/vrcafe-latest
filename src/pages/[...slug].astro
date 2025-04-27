@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 
   return experiences.map((experience: CollectionEntry<"experiences">) => ({
     params: {
-      slug: experience.data.id,
+      slug: experience.data.slug,
     },
     props: {
       experience,
