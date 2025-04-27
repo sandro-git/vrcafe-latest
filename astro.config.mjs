@@ -11,9 +11,7 @@ export default defineConfig({
   site: "https://vr-cafe.fr",
   integrations: [tailwind(), icon(), react(), sitemap()],
   output: "server",
-  adapter: netlify({
-    imageCDN: false,
-  }),
+  adapter: netlify(),
   // image: {
   //   service: {
   //     entrypoint: "astro/assets/services/sharp"
