@@ -2,7 +2,7 @@
 id: 37
 name: Aqualia
 slug: aqualia
-image: src/assets/images/experiences/aqualia.png
+image: "aqualia.png"
 youtube: "https://youtu.be/cyIqJnmEayU"
 tag: jeuxVR
 editeur: octopod

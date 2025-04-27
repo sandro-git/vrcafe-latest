@@ -2,7 +2,7 @@
 id: 31
 name: Plush Rush
 slug: plush-rush
-image: src/assets/images/experiences/plush-rush.jpg
+image: "plush-rush.jpg"
 youtube: 'https://youtu.be/3WTYoK4zMHI'
 tag: jeuxVR
 editeur: arvi

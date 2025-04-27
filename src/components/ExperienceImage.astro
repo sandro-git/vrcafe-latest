@@ -4,69 +4,46 @@ import { Image } from "astro:assets";
 
 const { filename, alt, class: className } = Astro.props;
 
-// Importer dynamiquement toutes les images avec leur métadonnées
+// Importer dynamiquement toutes les images
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "../assets/images/experiences/*.{png,jpg,jpeg,gif}",
   { eager: true }
 );
 
-// Fonction pour extraire le nom du fichier
-function extractFilename(path: string | ImageMetadata | null) {
-  if (!path) return null;
+// Fonction simplifiée pour trouver l'image correspondante
+function findImage(filename: string): ImageMetadata | null {
+  // Si le filename inclut déjà un chemin, extraire juste le nom du fichier
+  const justFilename = filename.split("/").pop() || "";
 
-  // Si path est un objet, convertir en chaîne
-  let pathStr = path;
-  if (typeof path === "object" && path !== null) {
-    pathStr = path.src || String(path);
-  } else {
-    pathStr = String(path);
-  }
-
-  // Extraire le nom de fichier sans le chemin
-  const filenamePart = pathStr.split("/").pop();
-  if (!filenamePart) return null;
-
-  // Retourner le nom du fichier sans l'extension
-  return filenamePart.replace(/\.[^/.]+$/, "");
-}
-
-// Obtenir le nom à rechercher
-const targetFilename = extractFilename(filename);
-
-// Chercher l'image correspondante
-let imageModule = null;
-
-if (targetFilename) {
+  // Chercher l'image dans les imports globaux
   for (const path in images) {
     const importedFilename = path.split("/").pop() || "";
-    // Retirer l'extension pour la comparaison
-    const importedName = importedFilename.replace(/\.[^/.]+$/, "");
-
-    // Utiliser une comparaison insensible à la casse
-    if (importedName.toLowerCase() === targetFilename.toLowerCase()) {
-      imageModule = images[path];
-      break;
+    if (importedFilename.toLowerCase() === justFilename.toLowerCase()) {
+      return images[path].default;
     }
   }
+
+  // Essayer sans l'extension
+  const filenameWithoutExt = justFilename.replace(/\.[^/.]+$/, "");
+  for (const path in images) {
+    const importedName = path.split("/").pop() || "".replace(/\.[^/.]+$/, "");
+    if (importedName.toLowerCase() === filenameWithoutExt.toLowerCase()) {
+      return images[path].default;
+    }
+  }
+
+  return null;
 }
 
-// Afficher des informations de débogage
-if (import.meta.env.DEV && !imageModule) {
-  console.log("Recherche d'image pour:", targetFilename);
-  console.log("Type de filename:", typeof filename);
-  console.log("Valeur de filename:", filename);
-  console.log(
-    "Images disponibles:",
-    Object.keys(images).map((path) => path.split("/").pop())
-  );
-}
+// Rechercher l'image
+const imageSource = findImage(filename);
 ---
 
 <div class={`aspect-square overflow-hidden rounded-lg ${className || ""}`}>
   {
-    imageModule ? (
+    imageSource ? (
       <Image
-        src={imageModule.default}
+        src={imageSource}
         alt={alt || "Image"}
         width={500}
         height={500}
@@ -76,7 +53,7 @@ if (import.meta.env.DEV && !imageModule) {
     ) : (
       <div class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700">
         <p class="text-gray-500 dark:text-gray-400 text-center p-4">
-          Image non trouvée: {targetFilename || String(filename)}
+          Image non trouvée: {filename}
         </p>
       </div>
     )

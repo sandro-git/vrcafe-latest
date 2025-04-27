@@ -2,7 +2,7 @@
 id: 15
 name: Mission Z
 slug: mission-z
-image: src/assets/images/experiences/mission-z.png
+image: "mission-z.png"
 youtube: "https://youtu.be/2kp62gfrwZc"
 tag: freeroaming
 editeur: vex

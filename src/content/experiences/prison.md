@@ -2,7 +2,7 @@
 id: 32
 name: Prison
 slug: prison
-image: src/assets/images/experiences/prison.jpg
+image: "prison.jpg"
 youtube: 'https://youtu.be/7LbIeabzb-I'
 tag: escapeGame
 editeur: arvi

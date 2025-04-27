@@ -4,16 +4,8 @@ import CardLink from "./CardLink.astro";
 import CardTitle from "./CardTitle.astro";
 const { game, slug } = Astro.props;
 
-// Extraire le nom du fichier à partir du chemin complet
-function getImageFilename(imagePath: string | ImageMetadata) {
-  if (typeof imagePath === "string") {
-    return imagePath.split("/").pop();
-  }
-  return imagePath;
-}
-
-// Extraire le nom de fichier seul pour le passer au composant
-const imageFilename = getImageFilename(game.data.image);
+// Plus besoin d'extraire le nom du fichier, on utilise directement la valeur
+const imageFilename = game.data.image;
 ---
 
 <div

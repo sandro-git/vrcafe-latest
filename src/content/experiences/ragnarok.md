@@ -2,7 +2,7 @@
 id: 38
 name: Ragnarok
 slug: ragnarok
-image: src/assets/images/experiences/ragnarok.jpg
+image: "ragnarok.jpg"
 youtube: 'https://youtu.be/ZKKs_wMC5rc'
 tag: jeuxVR
 editeur: octopod

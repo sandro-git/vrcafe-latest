@@ -2,7 +2,7 @@
 id: 10
 name: Christmas
 slug: christmas
-image: src/assets/images/experiences/christmas.jpg
+image: "christmas.jpg"
 youtube: 'https://youtu.be/Ziyq-kwdBug'
 tag: escapeGame
 editeur: arvi

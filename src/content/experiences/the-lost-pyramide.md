@@ -2,7 +2,7 @@
 id: 32
 name: The Lost Pyramide
 slug: the-lost-pyramide
-image: src/assets/images/experiences/the-lost-pyramide.jpg
+image: "the-lost-pyramide.jpg"
 youtube: 'https://youtu.be/gPnpwGzpW08'
 tag: escapeGame
 editeur: arvi

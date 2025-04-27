@@ -2,7 +2,7 @@
 id: 41
 name: Darkensum
 slug: darkensum
-image: src/assets/images/experiences/darkensum.png
+image: "darkensum.png"
 youtube: 'https://youtu.be/7oD0-GGdiOY'
 tag: jeuxVR
 editeur: ldlc

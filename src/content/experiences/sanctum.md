@@ -2,7 +2,7 @@
 id: 29
 name: Sanctum
 slug: sanctum
-image: src/assets/images/experiences/sanctum.jpg
+image: "sanctum.jpg"
 youtube: 'https://youtu.be/4CH_1BE0UxA'
 tag: escapeGame
 editeur: arvi

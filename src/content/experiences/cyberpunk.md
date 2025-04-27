@@ -2,7 +2,7 @@
 id: 7
 name: Cyberpunk
 slug: cyberpunk
-image: src/assets/images/experiences/cyberpunk.jpg
+image: "cyberpunk.jpg"
 youtube: 'https://youtu.be/NL4LrtEKsFU'
 tag: escapeGame
 editeur: arvi

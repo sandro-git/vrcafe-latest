@@ -2,7 +2,7 @@
 id: 37
 name: House Of Fear
 slug: house-of-fear
-image: src/assets/images/experiences/house-of-fear.jpg
+image: "house-of-fear.jpg"
 youtube: 'https://youtu.be/UwrZJ_aG1gE'
 tag: escapeGame
 editeur: arvi

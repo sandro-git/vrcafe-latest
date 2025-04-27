@@ -2,7 +2,7 @@
 id: 39
 name: PartyPlayland
 slug: partyplayland
-image: src/assets/images/experiences/partyplayland.png
+image: "partyplayland.png"
 youtube: 'https://youtu.be/ftYu2z78Z0M'
 tag: freeroaming
 editeur: octopod

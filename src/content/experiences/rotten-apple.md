@@ -2,7 +2,7 @@
 id: 19
 name: Rotten Apple
 slug: rotten-apple
-image: src/assets/images/experiences/rotten-apple.png
+image: "rotten-apple.png"
 youtube: 'https://youtu.be/s4AnHiEuqUs'
 tag: jeuxVR
 editeur: arvi

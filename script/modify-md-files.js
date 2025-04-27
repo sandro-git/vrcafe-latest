@@ -29,7 +29,7 @@ function modifyMarkdownFile(filePath) {
     // Cette regex cherche une ligne commençant par "image: " suivie d'un chemin entre guillemets
     const modifiedContent = content.replace(
       /image: "src\/assets\/images\/experiences\/([^"]+)"/g,
-      'image: "/src/assets/images/experiences/$1"'
+      'image: "../../assets/images/experiences/$1"'
     );
 
     // Écrire le contenu modifié dans le fichier

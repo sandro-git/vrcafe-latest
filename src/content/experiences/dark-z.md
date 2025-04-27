@@ -2,7 +2,7 @@
 id: 30
 name: 'Dark Z '
 slug: dark-z
-image: src/assets/images/experiences/dark-z.png
+image: "dark-z.png"
 youtube: 'https://youtu.be/S7kx6S8oHWQ'
 tag: freeroaming
 editeur: vex

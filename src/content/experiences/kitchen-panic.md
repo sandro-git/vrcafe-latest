@@ -2,7 +2,7 @@
 id: 17
 name: Kitchen Panic !
 slug: kitchen-panic
-image: src/assets/images/experiences/kitchen-panic.jpg
+image: "kitchen-panic.jpg"
 youtube: 'https://youtu.be/Xbe8UqWhnxg'
 tag: freeroaming
 editeur: vex

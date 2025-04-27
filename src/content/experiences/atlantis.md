@@ -2,7 +2,7 @@
 id: 22
 name: Atlantis
 slug: atlantis
-image: src/assets/images/experiences/atlantis.jpg
+image: "atlantis.jpg"
 youtube: 'https://youtu.be/LSecqhgoGEc'
 tag: escapeGame
 editeur: arvi

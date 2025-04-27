@@ -2,7 +2,7 @@
 id: 12
 name: Huxley
 slug: huxley
-image: src/assets/images/experiences/huxley.jpg
+image: "huxley.jpg"
 youtube: 'https://youtu.be/f8XTBQcFcmw'
 tag: escapeGame
 editeur: ubisoft

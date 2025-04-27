@@ -2,7 +2,7 @@
 id: 21
 name: Dream Hackers
 slug: dream-hackers
-image: src/assets/images/experiences/dream-hackers.jpg
+image: "dream-hackers.jpg"
 youtube: 'https://youtu.be/z2l3fibb6FU'
 tag: escapeGame
 editeur: arvi

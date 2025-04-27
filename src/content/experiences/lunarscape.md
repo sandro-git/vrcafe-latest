@@ -2,7 +2,7 @@
 id: 27
 name: Lunarscape
 slug: lunarscape
-image: src/assets/images/experiences/lunarscape.jpg
+image: "lunarscape.jpg"
 youtube: 'https://youtu.be/_Hck1gIyci0'
 tag: freeroaming
 editeur: vex
