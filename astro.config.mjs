@@ -14,9 +14,9 @@ export default defineConfig({
   adapter: netlify({
     imageCDN: false,
   }),
-  image: {
-    service: {
-      entrypoint: "astro/assets/services/sharp"
-    }
-  }
+  // image: {
+  //   service: {
+  //     entrypoint: "astro/assets/services/sharp"
+  //   }
+  // }
 });

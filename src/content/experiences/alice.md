@@ -2,7 +2,7 @@
 id: 36
 name: Alice
 slug: alice
-image: src/assets/images/experiences/alice.jpg
+image: /src/assets/images/experiences/alice.jpg
 youtube: "https://youtu.be/1YjCEIZWOLE"
 tag: escapeGame
 editeur: arvi

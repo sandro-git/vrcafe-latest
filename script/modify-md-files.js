@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Chemin vers le dossier contenant les fichiers Markdown
-const experiencesDir = join("src", "content", "experiences");
+const experiencesDir = join(__dirname, "..","src", "content", "experiences");
 
 // Fonction pour extraire le nom de fichier d'un chemin
 function extractFilename(imagePath) {
@@ -28,8 +28,8 @@ function modifyMarkdownFile(filePath) {
     // Utiliser une expression régulière pour trouver et remplacer le chemin de l'image
     // Cette regex cherche une ligne commençant par "image: " suivie d'un chemin entre guillemets
     const modifiedContent = content.replace(
-      /image: "src\/assets\/images\/experiences\/\/images\/experiences\/([^"]+)"/g,
-      'image: "src/assets/images/experiences/$1"'
+      /image: "src\/assets\/images\/experiences\/([^"]+)"/g,
+      'image: "/src/assets/images/experiences/$1"'
     );
 
     // Écrire le contenu modifié dans le fichier
