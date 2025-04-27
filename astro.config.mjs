@@ -12,4 +12,9 @@ export default defineConfig({
   integrations: [tailwind(), icon(), react(), sitemap()],
   output: "server",
   adapter: netlify(),
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp"
+    }
+  }
 });
