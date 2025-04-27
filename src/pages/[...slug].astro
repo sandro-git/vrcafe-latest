@@ -23,8 +23,8 @@ const { experience } = Astro.props as {
   experience: CollectionEntry<"experiences">;
 };
 
-const { body } = experience;
-const { name, youtube } = experience.data;
+// const { body } = experience;
+const { name, youtube, text } = experience.data;
 
 // Extraction de l'ID YouTube si c'est une URL complète
 const videoId = youtube.includes("youtu.be/")
@@ -45,6 +45,6 @@ const videoId = youtube.includes("youtu.be/")
     <div class="w-full max-w-4xl">
       <YoutubePlayer videoId={videoId} client:load />
     </div>
-    <p class="dark:text-white p-8 lg:w-1/2">{body}</p>
+    <p class="dark:text-white p-8 lg:w-1/2">{text}</p>
   </div>
 </BaseLayout>
