@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
-
+import { db, eq, gte, lte, and, desc } from 'astro:db';
+import { Reservations, TimeSlots } from '../../../db/schema';
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
@@ -26,13 +27,60 @@ export const POST: APIRoute = async ({ request }) => {
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
-
-    // Validation de la date (doit être dans le futur)
+    // Récupération du créneau horaire à partir de l'ID depuis la base de données
+    // Validation de la date et de l'heure (doivent être dans le futur)
     const reservationDate = new Date(date);
-    const now = new Date();
-    if (reservationDate <= now) {
+    
+    // Récupérer le créneau horaire depuis la base de données
+    const timeSlot = await db.select(TimeSlots)
+      .where(eq(TimeSlots.id, timeSlotId))
+      .first();
+    
+    if (!timeSlot) {
       return new Response(
-        JSON.stringify({ error: 'La date de réservation doit être dans le futur' }),
+        JSON.stringify({ error: 'Créneau horaire invalide ou introuvable' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // timeSlot is already assigned above
+    
+    // Vérifier si le créneau est actif
+    if (!timeSlot.active) {
+      return new Response(
+        JSON.stringify({ error: 'Ce créneau horaire n\'est pas disponible actuellement' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // Vérification de la disponibilité selon le jour de la semaine
+    const dayOfWeek = reservationDate.getDay(); // 0 = dimanche, 1 = lundi, etc.
+    const dayAvailability = {
+      0: timeSlot.sunday,
+      1: timeSlot.monday,
+      2: timeSlot.tuesday,
+      3: timeSlot.wednesday,
+      4: timeSlot.thursday,
+      5: timeSlot.friday,
+      6: timeSlot.saturday
+    };
+    
+    if (!dayAvailability[dayOfWeek]) {
+      return new Response(
+        JSON.stringify({ error: 'Ce créneau n\'est pas disponible pour le jour sélectionné' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // Créer une date/heure complète pour la réservation en combinant la date et l'heure de début du créneau
+    const [hours, minutes] = timeSlot.start.split(':').map(Number);
+    const reservationDateTime = new Date(reservationDate);
+    reservationDateTime.setHours(hours, minutes, 0, 0);
+    
+    const now = new Date();
+    if (reservationDateTime <= now) {
+      return new Response(
+        JSON.stringify({ error: 'La date et l\'heure de réservation doivent être dans le futur' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -76,31 +124,75 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
     
-    // Génération de l'identifiant de réservation
-    const reservationId = Math.floor(Math.random() * 10000);
-    const readableId = `VR-${new Date().getFullYear().toString().slice(2)}-${reservationId.toString().padStart(5, '0')}`;
-    
-    return new Response(
-      JSON.stringify({
-        id: readableId,
-        message: 'Réservation créée avec succès',
-        details: {
-          experienceId,
-          experienceSlug,
-          date,
-          timeSlotId,
-          customerName,
-          customerEmail,
-          customerPhone,
-          numberOfPeople,
-          duration,
-          price,
-          status: 'confirmed',
-          createdAt: new Date().toISOString()
-        }
-      }),
-      { status: 201, headers: { 'Content-Type': 'application/json' } }
-    );
+    // Création d'une nouvelle réservation dans la base de données
+    try {
+      // Insérer la réservation dans la base de données
+      const createdAt = new Date();
+      const insertResult = await db.insert(Reservations).values({
+        experienceId,
+        experienceSlug,
+        date: new Date(date),
+        timeSlotId,
+        customerName,
+        customerEmail,
+        customerPhone,
+        numberOfPeople,
+        duration,
+        price,
+        status: 'confirmed',
+        specialRequests: specialRequests || null,
+        createdAt,
+        referenceNumber: null
+      });
+
+      // Fetch the inserted reservation
+      const reservation = await db.select(Reservations)
+        .where(and(
+          eq(Reservations.customerEmail, customerEmail),
+          eq(Reservations.date, new Date(date)),
+          eq(Reservations.timeSlotId, timeSlotId)
+        ))
+        .order(desc(Reservations.id))
+        .first();
+
+      // Récupérer la réservation créée
+      if (!reservation) {
+        throw new Error('Échec de la création de la réservation');
+      }
+      
+      // Génération d'un identifiant lisible
+      const readableId = `VR-${new Date().getFullYear().toString().slice(2)}-${reservation.id.toString().padStart(5, '0')}`;
+      
+      return new Response(
+        JSON.stringify({
+          id: reservation.id,
+          referenceNumber: readableId,
+          message: 'Réservation créée avec succès',
+          details: {
+            experienceId,
+            experienceSlug,
+            date,
+            timeSlotId,
+            customerName,
+            customerEmail,
+            customerPhone,
+            numberOfPeople,
+            duration,
+            price,
+            status: 'confirmed',
+            createdAt: createdAt.toISOString()
+          }
+        }),
+        { status: 201, headers: { 'Content-Type': 'application/json' } }
+      );
+    } catch (dbError) {
+      console.error('Erreur lors de l\'insertion en base de données:', dbError);
+      
+      return new Response(
+        JSON.stringify({ error: 'Une erreur est survenue lors de la création de la réservation dans la base de données' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
   } catch (error) {
     console.error('Erreur lors de la création de la réservation:', error);
     
@@ -115,7 +207,6 @@ export const POST: APIRoute = async ({ request }) => {
 export const GET: APIRoute = async ({ request, url }) => {
   try {
     // Cette route devrait être protégée par une authentification
-    // Pour l'instant, nous ajoutons un paramètre simple pour la protection
     const adminKey = url.searchParams.get('adminKey');
     
     if (adminKey !== 'admin123') { // À remplacer par une vraie authentification
@@ -123,9 +214,7 @@ export const GET: APIRoute = async ({ request, url }) => {
         JSON.stringify({ error: 'Non autorisé' }),
         {
           status: 401,
-          headers: {
-            'Content-Type': 'application/json'
-          }
+          headers: { 'Content-Type': 'application/json' }
         }
       );
     }
@@ -135,97 +224,52 @@ export const GET: APIRoute = async ({ request, url }) => {
     const toDate = url.searchParams.get('toDate');
     const experienceId = url.searchParams.get('experienceId');
     
-    // Simuler des données de réservation pour le moment
-    // Dans une implémentation réelle, vous interrogeriez Astro DB
-    const mockReservations = [
-      {
-        id: 1,
-        experienceId: 24,
-        experienceSlug: "chernobyl",
-        date: "2025-05-01T00:00:00.000Z",
-        timeSlotId: 10,
-        customerName: "Jean Dupont",
-        customerEmail: "jean@example.com",
-        customerPhone: "06 12 34 56 78",
-        numberOfPeople: 3,
-        duration: "1h",
-        price: 81,
-        status: "confirmed",
-        specialRequests: "Nous sommes tous débutants en VR",
-        referenceNumber: "VR-25-00123",
-        createdAt: "2025-04-15T10:30:00.000Z"
-      },
-      {
-        id: 2,
-        experienceId: 11,
-        experienceSlug: "the-dagger-of-time",
-        date: "2025-05-02T00:00:00.000Z",
-        timeSlotId: 5,
-        customerName: "Marie Martin",
-        customerEmail: "marie@example.com",
-        customerPhone: "06 98 76 54 32",
-        numberOfPeople: 2,
-        duration: "30min",
-        price: 36,
-        status: "confirmed",
-        specialRequests: "",
-        referenceNumber: "VR-25-00124",
-        createdAt: "2025-04-16T14:45:00.000Z"
-      },
-      {
-        id: 3,
-        experienceId: 36,
-        experienceSlug: "alice",
-        date: "2025-05-03T00:00:00.000Z",
-        timeSlotId: 14,
-        customerName: "Pierre Durand",
-        customerEmail: "pierre@example.com",
-        customerPhone: "07 65 43 21 09",
-        numberOfPeople: 4,
-        duration: "1h",
-        price: 108,
-        status: "pending",
-        specialRequests: "Un anniversaire, pouvez-vous prévoir quelque chose de spécial?",
-        referenceNumber: "VR-25-00125",
-        createdAt: "2025-04-17T09:15:00.000Z"
-      }
-    ];
-    
-    // Appliquer les filtres si présents
-    let filteredReservations = [...mockReservations];
-    
+    // Build the conditions array
+    const conditions = [];
+
     if (fromDate) {
-      const fromDateTime = new Date(fromDate).getTime();
-      filteredReservations = filteredReservations.filter(
-        reservation => new Date(reservation.date).getTime() >= fromDateTime
-      );
+      const fromDateTime = new Date(fromDate);
+      conditions.push(gte(Reservations.date, fromDateTime));
     }
-    
+
     if (toDate) {
-      const toDateTime = new Date(toDate).getTime();
-      filteredReservations = filteredReservations.filter(
-        reservation => new Date(reservation.date).getTime() <= toDateTime
-      );
+      const toDateTime = new Date(toDate);
+      conditions.push(lte(Reservations.date, toDateTime));
     }
-    
+
     if (experienceId) {
-      filteredReservations = filteredReservations.filter(
-        reservation => reservation.experienceId === parseInt(experienceId)
-      );
+      const expId = parseInt(experienceId);
+      conditions.push(eq(Reservations.experienceId, expId));
     }
+
+    // Execute the query with all conditions
+    const reservations = conditions.length > 0
+      ? await db.select(Reservations).where(and(...conditions)).all()
+      : await db.select(Reservations).all();
+    
+    // Récupérer tous les time slots pour les lier aux réservations
+    const timeSlots = await db.select(TimeSlots).all();
+    const timeSlotsById = Object.fromEntries(timeSlots.map(ts => [ts.id, ts]));
+    
+    // Ajouter la référence lisible pour chaque réservation
+    const processedReservations = reservations.map(reservation => ({
+      ...reservation,
+      referenceNumber: `VR-${new Date(reservation.createdAt).getFullYear().toString().slice(2)}-${reservation.id.toString().padStart(5, '0')}`,
+      timeSlot: timeSlotsById[reservation.timeSlotId] || null,
+      date: reservation.date.toISOString(),
+      createdAt: reservation.createdAt.toISOString(),
+    }));
     
     // Trier par date
-    filteredReservations.sort((a, b) => 
+    processedReservations.sort((a, b) => 
       new Date(a.date).getTime() - new Date(b.date).getTime()
     );
-    
+  
     return new Response(
-      JSON.stringify(filteredReservations),
+      JSON.stringify(processedReservations),
       {
         status: 200,
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Content-Type': 'application/json' }
       }
     );
   } catch (error) {
@@ -237,9 +281,7 @@ export const GET: APIRoute = async ({ request, url }) => {
       }),
       {
         status: 500,
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Content-Type': 'application/json' }
       }
     );
   }

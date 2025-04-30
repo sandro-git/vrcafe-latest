@@ -40,12 +40,13 @@ function DateTimeSelector({ selectedExperience, selectedDuration, participants, 
       }
       
       const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      const todayWithoutTime = new Date(today);
+      todayWithoutTime.setHours(0, 0, 0, 0);
       
       for (let day = 1; day <= lastDay.getDate(); day++) {
         const date = new Date(year, month, day);
         date.setHours(0, 0, 0, 0);
-        const isSelectable = date >= today;
+        const isSelectable = date > todayWithoutTime || date.getTime() === todayWithoutTime.getTime();
         
         days.push({
           date,
@@ -134,6 +135,21 @@ function DateTimeSelector({ selectedExperience, selectedDuration, participants, 
           if (experienceType === 'escapeGame' || experienceType === 'escapeFreeroaming') {
             // Supprime aléatoirement certains créneaux pour simuler des créneaux occupés
             mockTimeSlots = mockTimeSlots.filter(() => Math.random() > 0.3);
+          }
+          
+          // Filtrer les créneaux déjà passés si la date sélectionnée est aujourd'hui
+          const now = new Date();
+          const isToday = selectedDate.toDateString() === now.toDateString();
+          
+          if (isToday) {
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            
+            // Filtrer les créneaux horaires qui sont déjà passés aujourd'hui
+            mockTimeSlots = mockTimeSlots.filter(slot => {
+              const [hours, minutes] = slot.start.split(':').map(Number);
+              return hours > currentHour || (hours === currentHour && minutes > currentMinute);
+            });
           }
           
           setAvailableTimeSlots(mockTimeSlots);

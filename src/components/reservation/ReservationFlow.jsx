@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ExperienceSelector from './ExperienceSelector';
 import DurationSelector from './DurationSelector';
 import ParticipantSelector from './ParticipantSelector';

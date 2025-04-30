@@ -1,0 +1,3 @@
+{
+  "config-path": "SELECT COUNT(*) as total_slots FROM TimeSlots;"
+}
