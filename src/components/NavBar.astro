@@ -49,8 +49,29 @@ const links = [
         style="font-family: 'Brush Script MT', cursive;">Café</span
       >
     </a>
-    <!-- Button -->
-    <BookingButton id="MainButton" />
+    <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+      <!-- Button -->
+      <BookingButton id="MainButton" />
+      
+      <!-- Mobile menu button -->
+      <button
+        data-collapse-toggle="navbar-sticky"
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        aria-controls="navbar-sticky"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Ouvrir le menu principal</span>
+        <!-- Hamburger Icon -->
+        <svg id="hamburger-icon" class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+        <!-- Close Icon -->
+        <svg id="close-icon" class="h-5 w-5 hidden" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+      </button>
+    </div>
 
     <!-- Menu -->
 
@@ -92,7 +113,30 @@ const links = [
   </div>
 </nav>
 
+
 <script>
   const button = document.querySelector("#booking");
   button?.addEventListener("click", () => (location.href = "/reservation"));
+
+  // Toggle mobile menu
+  const mobileMenuButton = document.querySelector('[data-collapse-toggle="navbar-sticky"]');
+  const mobileMenu = document.querySelector('#navbar-sticky');
+  const hamburgerIcon = document.querySelector('#hamburger-icon');
+  const closeIcon = document.querySelector('#close-icon');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    const isHidden = mobileMenu?.classList.contains('hidden');
+    
+    if (isHidden) {
+      mobileMenu?.classList.remove('hidden');
+      hamburgerIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+      mobileMenuButton?.setAttribute('aria-expanded', 'true');
+    } else {
+      mobileMenu?.classList.add('hidden');
+      hamburgerIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      mobileMenuButton?.setAttribute('aria-expanded', 'false');
+    }
+  });
 </script>
