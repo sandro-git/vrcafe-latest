@@ -1,9 +1,9 @@
 ---
-id: 39
+id: 36
 name: PartyPlayland
 slug: partyplayland
 image: "partyplayland.png"
-youtube: 'https://youtu.be/ftYu2z78Z0M'
+youtube: "https://youtu.be/ftYu2z78Z0M"
 tag: freeroaming
 editeur: octopod
 text: >-
@@ -15,4 +15,3 @@ text: >-
   sociale, rythmée et totalement immersive dans un univers cartoon digne des
   plus grands jeux de fête comme Fall Guys.
 ---
-

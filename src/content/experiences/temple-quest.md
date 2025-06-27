@@ -1,9 +1,9 @@
 ---
-id: 33
+id: 50
 name: Temple Quest
 slug: temple-quest
 image: "temple-quest.png"
-youtube: 'https://youtu.be/CsOqFhhPNLw'
+youtube: "https://youtu.be/CsOqFhhPNLw"
 tag: freeroaming
 editeur: vex
 text: >-
@@ -14,4 +14,3 @@ text: >-
   leur quête, ils devront résoudre des énigmes, éviter des pièges dangereux et
   affronter des dilemmes dans un état constant de suspense.
 ---
-

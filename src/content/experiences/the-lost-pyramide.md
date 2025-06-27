@@ -1,9 +1,9 @@
 ---
-id: 32
+id: 52
 name: The Lost Pyramide
 slug: the-lost-pyramide
 image: "the-lost-pyramide.jpg"
-youtube: 'https://youtu.be/gPnpwGzpW08'
+youtube: "https://youtu.be/gPnpwGzpW08"
 tag: escapeGame
 editeur: arvi
 text: >-
@@ -11,4 +11,3 @@ text: >-
   localisez ce qu'ils recherchaient! Un escape game qui vous emmènera en Egypte
   et vous fera voyager à travers les époques!
 ---
-

@@ -1,9 +1,9 @@
 ---
-id: 30
-name: 'Dark Z '
+id: 8
+name: "Dark Z "
 slug: dark-z
 image: "dark-z.png"
-youtube: 'https://youtu.be/S7kx6S8oHWQ'
+youtube: "https://youtu.be/S7kx6S8oHWQ"
 tag: freeroaming
 editeur: vex
 text: >-
@@ -14,4 +14,3 @@ text: >-
   mission ? Survivre à des hordes incessantes de créatures tout en progressant
   dans des conditions de visibilité quasi nulle.
 ---
-

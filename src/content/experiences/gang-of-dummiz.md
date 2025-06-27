@@ -1,11 +1,10 @@
 ---
-id: 1
+id: 14
 name: Gang of Dummiz
 slug: gang-of-dummiz
 image: "gang-of-dummiz.png"
-youtube: 'https://youtu.be/eDQx9hGG0fU'
+youtube: "https://youtu.be/eDQx9hGG0fU"
 tag: jeuxVR
 editeur: ldlc
-text: ''
+text: ""
 ---
-

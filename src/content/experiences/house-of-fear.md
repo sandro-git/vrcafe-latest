@@ -1,9 +1,9 @@
 ---
-id: 37
+id: 19
 name: House Of Fear
 slug: house-of-fear
 image: "house-of-fear.jpg"
-youtube: 'https://youtu.be/UwrZJ_aG1gE'
+youtube: "https://youtu.be/UwrZJ_aG1gE"
 tag: escapeGame
 editeur: arvi
 text: >-
@@ -19,4 +19,3 @@ text: >-
   rendez compte avec horreur que vous êtes pris dans un piège. La silhouette
   d'une personne apparaît par intermittence dans la faible lueur de la bougie...
 ---
-

@@ -1,9 +1,9 @@
 ---
-id: 31
+id: 37
 name: Plush Rush
 slug: plush-rush
 image: "plush-rush.jpg"
-youtube: 'https://youtu.be/3WTYoK4zMHI'
+youtube: "https://youtu.be/3WTYoK4zMHI"
 tag: jeuxVR
 editeur: arvi
 text: >-
@@ -21,4 +21,3 @@ text: >-
   visuels enchanteurs et le doux goût de la victoire. Relèverez-vous le défi et
   défendrez-vous le royaume des bonbons ?
 ---
-

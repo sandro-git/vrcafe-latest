@@ -1,9 +1,9 @@
 ---
-id: 23
-name: 'The Parvus Box '
+id: 53
+name: "The Parvus Box "
 slug: the-parvus-box
 image: "the-parvus-box.png"
-youtube: 'https://youtu.be/KEyVE0E3IHg'
+youtube: "https://youtu.be/KEyVE0E3IHg"
 tag: escapeFreeroaming
 editeur: vex
 text: >-
@@ -20,4 +20,3 @@ text: >-
   qui rétrécit les joueurs mais agrandit le fun ! À vivre entre amis ou en
   famille (2 à 4 joueurs).
 ---
-

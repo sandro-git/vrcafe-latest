@@ -1,9 +1,9 @@
 ---
-id: 16
+id: 17
 name: House Of Fear - Call of Blood
 slug: house-of-fear-call-of-blood
 image: "house-of-fear-call-of-blood.jpg"
-youtube: 'https://youtu.be/FZO9mIJOmKc'
+youtube: "https://youtu.be/FZO9mIJOmKc"
 tag: escapeGame
 editeur: arvi
 text: >-
@@ -33,4 +33,3 @@ text: >-
   perdre la raison ou laisserez-vous les tènèbres de l'hopital psychiatrique
   Delusion vous absorber à jamais?
 ---
-

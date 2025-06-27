@@ -1,9 +1,9 @@
 ---
-id: 19
+id: 42
 name: Rotten Apple
 slug: rotten-apple
 image: "rotten-apple.png"
-youtube: 'https://youtu.be/s4AnHiEuqUs'
+youtube: "https://youtu.be/s4AnHiEuqUs"
 tag: jeuxVR
 editeur: arvi
 text: >-
@@ -17,4 +17,3 @@ text: >-
   renforcer les gardes pendant leur dernier quart de travail. Puis, un appel
   d'urgence inattendu vous oblige à entrer...
 ---
-

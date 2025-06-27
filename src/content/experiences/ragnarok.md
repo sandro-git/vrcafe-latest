@@ -1,9 +1,9 @@
 ---
-id: 38
+id: 41
 name: Ragnarok
 slug: ragnarok
 image: "ragnarok.jpg"
-youtube: 'https://youtu.be/ZKKs_wMC5rc'
+youtube: "https://youtu.be/ZKKs_wMC5rc"
 tag: jeuxVR
 editeur: octopod
 text: >-
@@ -13,4 +13,3 @@ text: >-
   rock celtique au power metal viking, pour propulser votre navire et battre vos
   adversaires.​
 ---
-

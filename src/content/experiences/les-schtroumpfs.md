@@ -1,9 +1,9 @@
 ---
-id: 39
+id: 26
 name: Les Schtroumpfs
 slug: les-schtroumpfs
 image: "les-schtroumpfs.png"
-youtube: 'https://youtu.be/Sm3UAdZibkc'
+youtube: "https://youtu.be/Sm3UAdZibkc"
 tag: freeroaming
 editeur: vex
 text: >-
@@ -14,4 +14,3 @@ text: >-
   et le travail d'équipe, offrant une expérience parfaite pour les groupes
   d'amis ou les familles.
 ---
-

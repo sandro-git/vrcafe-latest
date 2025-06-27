@@ -1,9 +1,9 @@
 ---
-id: 6
+id: 32
 name: Mission Sigma
 slug: mission-sigma
 image: "mission-sigma.jpg"
-youtube: 'https://youtu.be/xMtjALW6U2A'
+youtube: "https://youtu.be/xMtjALW6U2A"
 tag: escapeGame
 editeur: arvi
 text: >-
@@ -16,4 +16,3 @@ text: >-
   vous ont aidé à infiltrer la cour. La suite dépendra de vous. Saurez-vous
   déjouer tous les pièges et éviter une attaque nucléaire ?
 ---
-

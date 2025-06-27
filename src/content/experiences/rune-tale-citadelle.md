@@ -1,9 +1,9 @@
 ---
-id: 35
+id: 43
 name: Rune Tale Citadelle
 slug: rune-tale-citadelle
 image: "rune-tale-citadelle.png"
-youtube: 'https://youtu.be/YST9Wzvl9rk'
+youtube: "https://youtu.be/YST9Wzvl9rk"
 tag: jeuxVR
 editeur: ldlc
 text: >-
@@ -16,4 +16,3 @@ text: >-
   devez jamais vous séparer, restez groupés pour survivre aux attaques des
   forces du mal.
 ---
-

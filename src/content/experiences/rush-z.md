@@ -1,9 +1,9 @@
 ---
-id: 4
+id: 45
 name: Rush Z
 slug: rush-z
 image: "rush-z.png"
-youtube: 'https://youtu.be/NK2AEgVyx5w'
+youtube: "https://youtu.be/NK2AEgVyx5w"
 tag: freeroaming
 editeur: vex
 text: >-
@@ -14,4 +14,3 @@ text: >-
   ressources et en utilisant l'environnement pour créer des défenses
   stratégiques.
 ---
-

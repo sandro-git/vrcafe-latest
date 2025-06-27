@@ -1,9 +1,9 @@
 ---
-id: 17
+id: 24
 name: Kitchen Panic !
 slug: kitchen-panic
 image: "kitchen-panic.jpg"
-youtube: 'https://youtu.be/Xbe8UqWhnxg'
+youtube: "https://youtu.be/Xbe8UqWhnxg"
 tag: freeroaming
 editeur: vex
 text: >-
@@ -14,4 +14,3 @@ text: >-
   combinant les ingrédients sur une assiette, puis servez-la sur le passe-plat
   avant que le client ne parte !
 ---
-

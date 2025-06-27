@@ -1,9 +1,9 @@
 ---
-id: 45
+id: 16
 name: Gunslinger
 slug: gunslinger
 image: "gunslinger.png"
-youtube: 'https://youtu.be/TXuGzUNRMQA'
+youtube: "https://youtu.be/TXuGzUNRMQA"
 tag: jeuxVR
 editeur: arvi
 text: >-
@@ -19,4 +19,3 @@ text: >-
   vastes canyons. Trouvez votre chemin jusqu'au cœur de ce monde - la Tour de la
   Renaissance - et participez à la bataille historique.
 ---
-

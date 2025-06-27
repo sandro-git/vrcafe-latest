@@ -1,9 +1,9 @@
 ---
-id: 14
+id: 18
 name: House of Fear - Cursed Soul
 slug: house-of-fear-cursed-soul
 image: "house-of-fear-cursed-soul.jpg"
-youtube: 'https://youtu.be/hBzLKe4pn7U'
+youtube: "https://youtu.be/hBzLKe4pn7U"
 tag: escapeGame
 editeur: arvi
 text: >-
@@ -19,4 +19,3 @@ text: >-
   Parviendrez-vous à percer ce mystère ? Êtes-vous vraiment prêt à explorer
   chaque coin et recoin de cet endroit...
 ---
-
