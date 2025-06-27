@@ -1,22 +1,11 @@
 ---
 id: 36
-name: Alice
-slug: alice
-image: "alice.jpg"
+name: Greenium
+slug: greenium
+image: "greenium.jpg"
 youtube: "https://youtu.be/1YjCEIZWOLE"
-tag: escapeGame
-editeur: arvi
+tag: escapeFreeroaming
+editeur: vex
 text: >-
-  Laissez-vous emporter par le tourbillon des événements et incarnez Alice !
-  Plongez dans un monde envahi par la vraie magie ! Vous devez découvrir les
-  secrets de la Reine de cœur qui a jeté un sort sur le temps du Pays des
-  Merveilles. Buvez une potion rétrécissante et suivez le Lapin blanc dans les
-  labyrinthes tordus du monde de l'autre côté du miroir, où tout est inversé.
-  Aidez le Chapelier, bloqué dans le temps, à résoudre le problème de la folle
-  fête du thé. Le chat du Cheshire vous guidera à travers le bosquet enchanté de
-  la Forêt noire. Sauvez les fées qui connaissent le secret de la méchante reine
-  en utilisant les conseils de la sage Chenille. Trouvez un moyen pour ne pas
-  vous faire surprendre par les gardes soldats, déjouez les nombreux pièges du
-  château et tentez de parvenir enfin à vaincre la Reine de cœur, renverser le
-  sort de la tour de l'horloge et sauver le Pays des Merveilles.
+  Découvrez Greenium, une expérience VR coopérative intense conçue spécialement pour les arcades LBVR : incarnez un·e scientifique envoyé·e sur une planète lointaine menacée, où les cristaux vitaux pour terraformer le monde sont pillés par des mercenaires sans scrupules. Avec votre équipe (de 2 à 4 joueurs), explorez des ruines mystérieuses, résolvez des énigmes antiques, affrontez des braconniers, améliorez votre vaisseau et déclenchez la machine de terraformation. Chaque tâche fait monter l’adrénaline et stimule la coopération : la cohésion du groupe est essentielle pour protéger les cristaux et mener à bien la mission
 ---
